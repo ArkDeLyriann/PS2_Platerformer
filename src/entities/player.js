@@ -47,12 +47,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             this.direction = "up"; 
             this.facingUp = true;
         } 
-        else if (this.clavier.down.isDown) {
-            mouvement.y = 1;
-            this.direction = "down";
-            this.facingUp = false;
-
-        } 
         else {
             mouvement.y = 0;
           

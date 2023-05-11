@@ -1,4 +1,5 @@
-import menu from "/src/levels/menuPrincipal.js";
+import test from "scenes/testRoom.js";
+
 
 
 
@@ -17,9 +18,9 @@ var config = {
     },
     antialias: true,
 
-    scene: [menu, global, kitchen, quarters]
+    scene: [test]
   };
   
   // création et lancement du jeu
   var game = new Phaser.Game(config);
-  game.scene.start("menu");
+  game.scene.start("test");
