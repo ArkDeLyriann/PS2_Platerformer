@@ -34,11 +34,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         else {
             mouvement.x = 0;
             if (this.facing == "right"){
-                this.anims.play("iddle_right", true);
+                this.anims.play("iddle", true);
             }
             else if (this.facing == "left")
             {
-                this.anims.play("iddle_left", true);
+                
+                this.anims.play("iddle", true);
             }
         }
 
