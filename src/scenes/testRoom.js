@@ -49,6 +49,14 @@ export default class test extends Phaser.Scene {
                         this.physics.add.collider(this.player, carteMurs);
                         carteMurs.setCollisionByExclusion(-1, true);
                         
+                        
+                        
+                        this.anims.create({
+                            key: "iddle_left",
+                            frames: this.anims.generateFrameNumbers("player", { start: 0, end: 12 }),
+                            frameRate: 24,
+                            repeat: -1
+                        });
                     }
                     
                 }
