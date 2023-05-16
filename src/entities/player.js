@@ -1,8 +1,8 @@
 export default class Player extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y, texture){
         super(scene, x, y, texture)
-        this.clavier = scene.input.keyboard.createCursorKeys();
-        
+        this.cursors = scene.input.keyboard.createCursorKeys();
+        this.clavier = scene.input.keyboard.addKeys('A,D,SPACE,SHIFT,E');
 
         scene.physics.world.enable(this)
         scene.add.existing(this)
@@ -10,70 +10,92 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     }
 
 
-    
+    create(){
+        this.dashCD1 = true;
+        this.IsMoving = false;
+        this.IsGoingLeft = false;
+        this.IsGoingRight = false;
+        this.isDashing = true;
+        this.CanBDF = true;
+    }
+
     update(){
 
         this.healthPoints = 6
+        this.canJump = true
 
-        var mouvement = new Phaser.Math.Vector2(0, 0);
-        // Mouvement
-        if (this.clavier.left.isDown) {
-            mouvement.x = -1;
-            this.direction = "left";
-            this.facing = "left";
+        if (this.clavier.SHIFT.isDown){
+            console.log("SHIFT")
+        }
+
+        if (this.clavier.SHIFT.isDown && this.IsMoving == true && this.IsGoingRight == false && this.dashCD1 == true) {
             
-            
-        } 
-        else if (this.clavier.right.isDown) {
-            mouvement.x = 1;
-            this.direction = "right";
-            this.facing = "right";
-            
-            
-        } 
+            this.IsGoingRight = false;
+            this.IsMoving = true;
+            this.setVelocityX(-900);
+            this.setVelocityY(0);
+            this.body.setAllowGravity(false)
+            setTimeout(() => {
+                this.dashCD1 = false
+                this.isDashing = true;
+                this.body.setAllowGravity(true)
+            }, 200);
+
+            this.time.addEvent({
+                delay: 1000, callback: () => {
+                    this.dashCD1 = true
+                    this.isDashing = false
+                },
+            })
+        }
+
+        else if (this.clavier.SHIFT.isDown && this.IsMoving == true && this.IsGoingRight == true && this.dashCD1 == true) {
+            console.log("dash droite")
+            this.IsGoingLeft = false;
+            this.IsMoving = true;
+            this.setVelocityX(900);
+            this.setVelocityY(0);
+            this.body.setAllowGravity(false)
+            setTimeout(() => {
+                this.dashCD1 = false
+                this.body.setAllowGravity(true)
+            }, 200);
+
+            this.time.addEvent({
+                delay: 1000, callback: () => {
+                    this.dashCD1 = true
+                },
+            })
+
+        }
+
+
+        else if (this.cursors.left.isDown) {
+            this.IsGoingLeft = true;
+            this.IsGoingRight = false;
+            this.IsMoving = true;
+            this.setVelocityX(-500);
+        }
+
+        else if (this.cursors.right.isDown) {
+            this.IsGoingLeft = false;
+            this.IsGoingRight = true;
+            this.IsMoving = true;
+            this.setVelocityX(500);
+        }
+
         else {
-            mouvement.x = 0;
-            if (this.facing == "right"){
-                this.anims.play("iddle", true);
-            }
-            else if (this.facing == "left")
-            {
-                
-                this.anims.play("iddle", true);
-            }
+            this.IsGoingLeft = false;
+            this.IsGoingRight = false;
+            this.IsMoving = false;
+            this.setVelocityX(0);
         }
 
-        if (this.clavier.up.isDown) {
-            mouvement.y = -1;
-            this.direction = "up"; 
-            this.facingUp = true;
-        } 
-        else {
-            mouvement.y = 0;
-          
-        }
+        if (this.cursors.up.isDown && this.body.blocked.down) {
+            this.IsMoving = true
 
-        
+            this.setVelocityY(-700);
 
-        mouvement.normalize();
-        this.setVelocity(mouvement.x * PLAYER_SPEED, mouvement.y * PLAYER_SPEED);
-        console.log(this.direction);
-
-        this.x = Math.round(this.x);
-        this.y = Math.round(this.y);
-
-        if (mouvement.x < 0) {
-            this.anims.play("move_left", true);
-        }
-        else if (mouvement.x > 0) {
-            this.anims.play("move_right", true);
-        }
-        else if (this.facing == "right"){
-            this.anims.play("iddle_right", true);
-        }
-        else if (this.facing == "left")
-        {
-            this.anims.play("iddle_left", true);
         }
     }
 }
