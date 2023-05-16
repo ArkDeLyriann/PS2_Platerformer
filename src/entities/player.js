@@ -3,99 +3,103 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         super(scene, x, y, texture)
         this.cursors = scene.input.keyboard.createCursorKeys();
         this.clavier = scene.input.keyboard.addKeys('A,D,SPACE,SHIFT,E');
-
+        this.canDash = true
+        this.canMove = true
         scene.physics.world.enable(this)
         scene.add.existing(this)
         this.setCollideWorldBounds(true);
     }
-
-
-    create(){
-        this.dashCD1 = true;
-        this.IsMoving = false;
-        this.IsGoingLeft = false;
-        this.IsGoingRight = false;
-        this.isDashing = true;
-        this.CanBDF = true;
-    }
-
+    
+    
     update(){
 
         this.healthPoints = 6
-        this.canJump = true
 
-        if (this.clavier.SHIFT.isDown){
-            console.log("SHIFT")
+        var mouvement = new Phaser.Math.Vector2(0, 0);
+
+        if(this.canMove){
+        if (this.body.blocked.down){
+            this.canJump = true
+            console.log(this.canJump)
         }
-
-        if (this.clavier.SHIFT.isDown && this.IsMoving == true && this.IsGoingRight == false && this.dashCD1 == true) {
+        // Mouvement
+        if (this.cursors.left.isDown) {
             
-            this.IsGoingRight = false;
-            this.IsMoving = true;
-            this.setVelocityX(-900);
-            this.setVelocityY(0);
-            this.body.setAllowGravity(false)
-            setTimeout(() => {
-                this.dashCD1 = false
-                this.isDashing = true;
-                this.body.setAllowGravity(true)
-            }, 200);
-
-            this.time.addEvent({
-                delay: 1000, callback: () => {
-                    this.dashCD1 = true
-                    this.isDashing = false
-                },
-            })
-        }
-
-        else if (this.clavier.SHIFT.isDown && this.IsMoving == true && this.IsGoingRight == true && this.dashCD1 == true) {
-            console.log("dash droite")
-            this.IsGoingLeft = false;
-            this.IsMoving = true;
-            this.setVelocityX(900);
-            this.setVelocityY(0);
-            this.body.setAllowGravity(false)
-            setTimeout(() => {
-                this.dashCD1 = false
-                this.body.setAllowGravity(true)
-            }, 200);
-
-            this.time.addEvent({
-                delay: 1000, callback: () => {
-                    this.dashCD1 = true
-                },
-            })
-
-        }
-
-
-        else if (this.cursors.left.isDown) {
-            this.IsGoingLeft = true;
-            this.IsGoingRight = false;
-            this.IsMoving = true;
-            this.setVelocityX(-500);
-        }
-
+            mouvement.x = -1;
+            this.direction = "left";
+            this.facing = "left";
+            
+            
+        } 
         else if (this.cursors.right.isDown) {
-            this.IsGoingLeft = false;
-            this.IsGoingRight = true;
-            this.IsMoving = true;
-            this.setVelocityX(500);
-        }
-
+            mouvement.x = 1;
+            this.direction = "right";
+            this.facing = "right";
+            
+            
+        } 
         else {
-            this.IsGoingLeft = false;
-            this.IsGoingRight = false;
-            this.IsMoving = false;
-            this.setVelocityX(0);
+            mouvement.x = 0;
+            if (this.facing == "right"){
+                
+            }
+            else if (this.facing == "left")
+            {
+                
+                
+            }
         }
+        
+        mouvement.normalize();
+        this.setVelocityX(mouvement.x * 300);
+    }
 
-        if (this.cursors.up.isDown && this.body.blocked.down) {
-            this.IsMoving = true
+        
 
-            this.setVelocityY(-700);
-
+        if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
+            if(this.body.blocked.down){
+                this.setVelocityY(-700);
+            }
+            else if (this.canJump){
+                this.canJump = false;
+                console.log(this.canJump);
+                this.setVelocityY(-700);
+            }
+        }   
+        
+        if (Phaser.Input.Keyboard.JustDown(this.clavier.SHIFT) && this.canDash) {
+            this.canJump = true
+            this.canDash = false
+            this.canMove = false
+            this.body.setAllowGravity(false)
+            if(this.goingLeft){
+                this.setVelocityX(-950)               
+            }
+            if(this.goingRight){
+                this.setVelocityX(950)
+            }
+            setTimeout(() => {
+                this.canDash = true
+                this.canMove = true
+                this.body.setAllowGravity(true)
+            }, 250);
         }
+        
+
+       
+        
+        this.x = Math.round(this.x);
+
+        if (mouvement.x < 0) {
+            this.goingLeft = true
+            this.goingRight = false
+            this.anims.play("run_left", true);
+        }
+        else if (mouvement.x > 0) {
+            this.goingRight = true
+            this.goingLeft = false
+            this.anims.play("run_left", true);
+        }
+        
     }
 }
