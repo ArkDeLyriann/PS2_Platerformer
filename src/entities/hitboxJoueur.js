@@ -9,5 +9,6 @@ export default class HitBoite extends Phaser.Physics.Arcade.Sprite{
 
     update(){
         
+        
     }
 }
