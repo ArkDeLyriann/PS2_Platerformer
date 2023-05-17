@@ -45,6 +45,7 @@ export default class test extends Phaser.Scene {
             this.canHit = true
             this.hitBoxDroiteExiste = false
             this.hitBoxGaucheExiste = false
+            this.hitBoxLaserExiste = false
             this.clavier = this.input.keyboard.addKeys('A,Z,SPACE,E');
             
             const carteDuNiveau = this.add.tilemap("testRoom");
@@ -92,8 +93,8 @@ export default class test extends Phaser.Scene {
                             repeat: -1
                         });
                         
-                        this.physics.world.setBounds(0, 0, 3500, 3500);
-                        this.cameras.main.setBounds(0, 0, 3500, 3500);
+                        this.physics.world.setBounds(0, 0, 3200, 2240);
+                        this.cameras.main.setBounds(0, 0, 3200, 2240);
                         this.cameras.main.setZoom(1);
                         this.cameras.main.startFollow(this.player);
                         
@@ -123,6 +124,10 @@ export default class test extends Phaser.Scene {
                             this.attaqueBox.x = this.player.x -64;
                             this.attaqueBox.y = this.player.y;
                         }
+                        if (this.hitBoxBasExiste){
+                            this.attaqueBox.x = this.player.x;
+                            this.attaqueBox.y = this.player.y;
+                        }
                         
                     }
                     
@@ -132,28 +137,28 @@ export default class test extends Phaser.Scene {
                     }
                     invoqueAttaque(){
                         this.canHit = false
-                        if(this.player.goingRight){
+
+                        if (this.player.isJumping){
+                            this.hitBoxBasExiste = true
+                            
+                            this.attaqueBox = new HitBoite(this, this.player.x,this.player.y, 'fSpin');
+                            this.attaqueBox.setSize(256,96)
+
+                            
+                        }
+                        else if(this.player.goingRight){
                             this.hitBoxDroiteExiste = true
                             this.attaqueBox = new HitBoite(this, this.player.x + 64,this.player.y, 'hitBoite');
                         }
                         else if(this.player.goingLeft){
                             this.hitBoxGaucheExiste = true
                             this.attaqueBox = new HitBoite(this, this.player.x - 64,this.player.y, 'hitBoite');
-                        }else if(this.player.regardeBas){
-                            this.hitBoxBasExiste = true
-                            if(this.player.body.blocked.down){
-                                this.attaqueBox = new HitBoite(this, this.player.x,this.player.y, 'fSpin');
-                                this.attaqueBox.setSize(256,64)
-                            }else{
-                                this.attaqueBox = new HitBoite(this, this.player.x,this.player.y +256, 'vertiLaser');
-                                this.attaqueBox.setSize(64,512);
-                            }
-                        }else if (this.player.isJumping){
-
-
                         }else{
                             
-                            this.attaqueBox = new HitBoite(this, this.player.x + 64,this.player.y, 'hitBoite');
+                            this.hitBoxBasExiste = true
+                            
+                            this.attaqueBox = new HitBoite(this, this.player.x,this.player.y, 'fSpin');
+                            this.attaqueBox.setSize(256,96)
                             
                         }
                         this.physics.add.overlap(this.attaqueBox, this.testFly, this.taper , null, this)

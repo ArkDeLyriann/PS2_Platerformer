@@ -6,6 +6,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         this.canDash = true
         this.canMove = true
         this.regardeBas = false
+        this.isJumping = false
         this.canFly = false
         this.isDashing = false
         scene.physics.world.enable(this)
@@ -20,10 +21,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         this.healthPoints = 6
         
         var mouvement = new Phaser.Math.Vector2(0, 0);
+
         
         if(this.canMove){
             if (this.body.blocked.down){
                 this.canJump = true
+                this.isJumping = false
                 
             }
             // Mouvement
@@ -44,6 +47,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             } 
             else {
                 mouvement.x = 0;
+                this.goingLeft = false
+                this.goingRight = false
                 
             }
             if (Phaser.Input.Keyboard.JustDown(this.cursors.down)){
@@ -71,10 +76,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 
                 
             } 
-            else {
-             
-                
-            }
             if (Phaser.Input.Keyboard.JustDown(this.cursors.down)){
                 this.regardeBas = true
                 this.goingLeft = false
@@ -94,9 +95,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 this.body.setAllowGravity(false)
             }
             else if(this.body.blocked.down){
+                this.isJumping = true
                 this.setVelocityY(-700);
             }
             else if (this.canJump){
+                this.isJumping = true
                 this.canJump = false;
                 this.setVelocityY(-700);
             }
