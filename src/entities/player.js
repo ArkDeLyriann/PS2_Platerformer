@@ -5,6 +5,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         this.clavier = scene.input.keyboard.addKeys('A,Z,SPACE,E');
         this.canDash = true
         this.canMove = true
+        this.regardeBas = false
         this.canFly = false
         this.isDashing = false
         scene.physics.world.enable(this)
@@ -45,6 +46,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 mouvement.x = 0;
                 
             }
+            if (Phaser.Input.Keyboard.JustDown(this.cursors.down)){
+                this.regardeBas = true
+                this.goingLeft = false
+                this.goingRight = false
+            }
             
             mouvement.normalize();
             this.setVelocityX(mouvement.x * 300);
@@ -66,15 +72,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 
             } 
             else {
-                mouvement.x = 0;
-                if (this.facing == "right"){
-                    
-                }
-                else if (this.facing == "left")
-                {
-                    
-                    
-                }
+             
+                
+            }
+            if (Phaser.Input.Keyboard.JustDown(this.cursors.down)){
+                this.regardeBas = true
+                this.goingLeft = false
+                this.goingRight = false
             }
             
             mouvement.normalize();

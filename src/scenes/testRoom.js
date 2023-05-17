@@ -28,6 +28,14 @@ export default class test extends Phaser.Scene {
                 frameWidth: 64,
                 frameHeight: 64
             })
+            this.load.spritesheet('vertiLaser', "src/assets/sprites/laser_vertical.png",{
+                frameWidth: 64,
+                frameHeight: 512
+            })
+            this.load.spritesheet('fSpin', "src/assets/sprites/firespin.png",{
+                frameWidth: 256,
+                frameHeight: 64
+            })
             
             
             
@@ -131,6 +139,18 @@ export default class test extends Phaser.Scene {
                         else if(this.player.goingLeft){
                             this.hitBoxGaucheExiste = true
                             this.attaqueBox = new HitBoite(this, this.player.x - 64,this.player.y, 'hitBoite');
+                        }else if(this.player.regardeBas){
+                            this.hitBoxBasExiste = true
+                            if(this.player.body.blocked.down){
+                                this.attaqueBox = new HitBoite(this, this.player.x,this.player.y, 'fSpin');
+                                this.attaqueBox.setSize(256,64)
+                            }else{
+                                this.attaqueBox = new HitBoite(this, this.player.x,this.player.y +256, 'vertiLaser');
+                                this.attaqueBox.setSize(64,512);
+                            }
+                        }else if (this.player.isJumping){
+
+
                         }else{
                             
                             this.attaqueBox = new HitBoite(this, this.player.x + 64,this.player.y, 'hitBoite');
