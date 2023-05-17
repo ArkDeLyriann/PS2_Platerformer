@@ -7,5 +7,7 @@ export default class HitBoite extends Phaser.Physics.Arcade.Sprite{
         scene.add.existing(this)
     }
 
-
+    update(){
+        
+    }
 }

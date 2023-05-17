@@ -6,6 +6,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         this.canDash = true
         this.canMove = true
         this.canFly = false
+        this.isDashing = false
         scene.physics.world.enable(this)
         scene.add.existing(this)
         this.setCollideWorldBounds(true);
@@ -14,81 +15,81 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     
     
     update(){
-
+        
         this.healthPoints = 6
-
+        
         var mouvement = new Phaser.Math.Vector2(0, 0);
-
+        
         if(this.canMove){
-        if (this.body.blocked.down){
-            this.canJump = true
-            
-        }
-        // Mouvement
-        if (this.cursors.left.isDown) {
-            
-            mouvement.x = -1;
-            this.direction = "left";
-            this.facing = "left";
-            
-            
-        } 
-        else if (this.cursors.right.isDown) {
-            mouvement.x = 1;
-            this.direction = "right";
-            this.facing = "right";
-            
-            
-        } 
-        else {
-            mouvement.x = 0;
-            if (this.facing == "right"){
+            if (this.body.blocked.down){
+                this.canJump = true
                 
             }
-            else if (this.facing == "left")
-            {
+            // Mouvement
+            if (this.cursors.left.isDown) {
+                
+                mouvement.x = -1;
+                this.direction = "left";
+                this.facing = "left";
                 
                 
+            } 
+            else if (this.cursors.right.isDown) {
+                mouvement.x = 1;
+                this.direction = "right";
+                this.facing = "right";
+                
+                
+            } 
+            else {
+                mouvement.x = 0;
+                if (this.facing == "right"){
+                    
+                }
+                else if (this.facing == "left")
+                {
+                    
+                    
+                }
             }
+            
+            mouvement.normalize();
+            this.setVelocityX(mouvement.x * 300);
+        }else if(this.isFlying){
+            
+            if (this.cursors.left.isDown) {
+                
+                mouvement.x = -1;
+                this.direction = "left";
+                this.facing = "left";
+                
+                
+            } 
+            else if (this.cursors.right.isDown) {
+                mouvement.x = 1;
+                this.direction = "right";
+                this.facing = "right";
+                
+                
+            } 
+            else {
+                mouvement.x = 0;
+                if (this.facing == "right"){
+                    
+                }
+                else if (this.facing == "left")
+                {
+                    
+                    
+                }
+            }
+            
+            mouvement.normalize();
+            this.setVelocityX(mouvement.x * 300);
         }
         
-        mouvement.normalize();
-        this.setVelocityX(mouvement.x * 300);
-    }else if(this.isFlying){
-
-        if (this.cursors.left.isDown) {
-            
-            mouvement.x = -1;
-            this.direction = "left";
-            this.facing = "left";
-            
-            
-        } 
-        else if (this.cursors.right.isDown) {
-            mouvement.x = 1;
-            this.direction = "right";
-            this.facing = "right";
-            
-            
-        } 
-        else {
-            mouvement.x = 0;
-            if (this.facing == "right"){
-                
-            }
-            else if (this.facing == "left")
-            {
-                
-                
-            }
-        }
         
-        mouvement.normalize();
-        this.setVelocityX(mouvement.x * 300);
-    }
-
         
-
         if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
             if (this.canFly){
                 this.isFlying = true
@@ -106,6 +107,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         
         if (Phaser.Input.Keyboard.JustDown(this.clavier.SPACE) && this.canDash) {
             this.canJump = true
+            this.isDashing = true
             this.canDash = false
             this.canMove = false
             this.body.setAllowGravity(false)
@@ -116,8 +118,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 this.setVelocityX(950)
             }
             setTimeout(() => {
-                
                 this.canMove = true
+                this.isDashing = false;
                 this.body.setAllowGravity(true)
             }, 250);
             setTimeout(() => {
@@ -127,7 +129,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             }, 2000);
             
         }
-
+        
         
         
         if (this.isFlying){
@@ -137,10 +139,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 this.isFlying = false
             }, 4000);
         }
-       
+        
         
         this.x = Math.round(this.x);
-
+        
         if (mouvement.x < 0) {
             this.goingLeft = true
             this.goingRight = false
