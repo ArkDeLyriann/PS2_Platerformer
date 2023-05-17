@@ -6,7 +6,8 @@ export default class test extends Phaser.Scene {
             key: "test"
         });
     }
-    init(data){   
+    init(data){
+
     }
     
     preload(){
@@ -15,6 +16,12 @@ export default class test extends Phaser.Scene {
         this.load.spritesheet("player", "src/assets/sprites/player/player.png",{
             frameWidth: 96,
             frameHeight: 96,})
+
+
+        this.load.spritesheet('testFly', "src/assets/sprites/possion.png",{
+            frameWidth: 32,
+            frameHeight: 32
+            })
             
             
             
@@ -37,12 +44,16 @@ export default class test extends Phaser.Scene {
             "plateformes",
             tileset
             );
+
+        this.testFly = this.physics.add.sprite(32*32, 21*32, 'testFly');
                     
 
                         
         this.player = new Player(this, 0, 32*64, 'player');
         this.player.refreshBody();
         this.physics.add.collider(this.player, plateformes);
+        this.physics.add.collider(this.testFly, plateformes);
+        this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
         plateformes.setCollisionByExclusion(-1, true);
                         
                         
@@ -62,8 +73,14 @@ export default class test extends Phaser.Scene {
             
     }
     update(){
+        console.log(this.player.canFly);
         this.player.update();
 
+    }
+
+    flyReset(){
+        this.player.canFly = true;
+        console.log(this.player.canFly)
     }
                     
 }

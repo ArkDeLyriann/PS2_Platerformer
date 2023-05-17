@@ -2,13 +2,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y, texture){
         super(scene, x, y, texture)
         this.cursors = scene.input.keyboard.createCursorKeys();
-        this.clavier = scene.input.keyboard.addKeys('A,D,SPACE,SHIFT,E');
+        this.clavier = scene.input.keyboard.addKeys('A,D,SPACE,E');
         this.canDash = true
         this.canMove = true
+        this.canFly = true
         scene.physics.world.enable(this)
         scene.add.existing(this)
         this.setCollideWorldBounds(true);
     }
+    
     
     
     update(){
@@ -20,7 +22,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         if(this.canMove){
         if (this.body.blocked.down){
             this.canJump = true
-            console.log(this.canJump)
+            
         }
         // Mouvement
         if (this.cursors.left.isDown) {
@@ -57,17 +59,21 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         
 
         if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
-            if(this.body.blocked.down){
+            if (this.canFly){
+                this.isFlying = true
+                this.setVelocityY(-700);
+                this.body.setAllowGravity(false)
+            }
+            else if(this.body.blocked.down){
                 this.setVelocityY(-700);
             }
             else if (this.canJump){
                 this.canJump = false;
-                console.log(this.canJump);
                 this.setVelocityY(-700);
             }
         }   
         
-        if (Phaser.Input.Keyboard.JustDown(this.clavier.SHIFT) && this.canDash) {
+        if (Phaser.Input.Keyboard.JustDown(this.clavier.SPACE) && this.canDash) {
             this.canJump = true
             this.canDash = false
             this.canMove = false
@@ -79,13 +85,25 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 this.setVelocityX(950)
             }
             setTimeout(() => {
-                this.canDash = true
+                
                 this.canMove = true
                 this.body.setAllowGravity(true)
             }, 250);
+            setTimeout(() => {
+                this.canDash = true
+                
+                
+            }, 2000);
+            
         }
         
-
+        if (this.isFlying){
+            setTimeout(() => {
+                this.canFly = false
+                this.body.setAllowGravity(true)
+                this.isFlying = false
+            }, 4000);
+        }
        
         
         this.x = Math.round(this.x);
@@ -93,12 +111,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         if (mouvement.x < 0) {
             this.goingLeft = true
             this.goingRight = false
-            this.anims.play("run_left", true);
+            this.anims.play("run_left", true).flipX=true;
         }
         else if (mouvement.x > 0) {
             this.goingRight = true
             this.goingLeft = false
-            this.anims.play("run_left", true);
+            this.anims.play("run_left", true).flipX=false;
         }
         
     }
