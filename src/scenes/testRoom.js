@@ -14,9 +14,10 @@ export default class test extends Phaser.Scene {
     preload(){
         this.load.image("tileset", "src/assets/maps/tileset_temp.png");
         this.load.tilemapTiledJSON("testRoom", "src/assets/maps/map_test.json");
-        this.load.spritesheet("player", "src/assets/sprites/player/player.png",{
+        this.load.spritesheet("player", "src/assets/sprites/player/player_run.png",{
             frameWidth: 128,
             frameHeight: 128,})
+
             
             
             this.load.spritesheet('testFly', "src/assets/sprites/possion.png",{
@@ -64,7 +65,7 @@ export default class test extends Phaser.Scene {
                         this.player.setOffset(48,32);
                         this.physics.add.collider(this.player, plateformes);
                         this.physics.add.collider(this.testFly, plateformes, this.drift, null, this);
-                        this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
+                        this.testCollide = this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
                         this.physics.add.overlap(HitBoite, this.testFly, this.taper , null, this)
                         plateformes.setCollisionByExclusion(-1, true);
                         
@@ -72,8 +73,14 @@ export default class test extends Phaser.Scene {
                         
                         this.anims.create({
                             key: "run_left",
+                            frames: this.anims.generateFrameNumbers("player", { start: 12, end: 23 }),
+                            frameRate: 12,
+                            repeat: -1
+                        });
+                        this.anims.create({
+                            key: "iddle",
                             frames: this.anims.generateFrameNumbers("player", { start: 0, end: 11 }),
-                            frameRate: 24,
+                            frameRate: 12,
                             repeat: -1
                         });
                         
@@ -94,7 +101,11 @@ export default class test extends Phaser.Scene {
                             }
                         }
                         if(this.player.isDashing){
+                            this.testCollide.active = false;
                             this.invoqueAttaqueDash();
+                            setTimeout(() => {
+                                this.testCollide.active = true;
+                            }, 250);
                         }
                         if (this.hitBoxDroiteExiste){
                             this.attaqueBox.x = this.player.x +64;
@@ -162,7 +173,7 @@ export default class test extends Phaser.Scene {
                             this.hitBoxDroiteExiste = false;
                             this.hitBoxGaucheExiste = false;
                             console.log("j'ai pété la boite")
-                        }, 50);
+                        }, 300);
                         this.attaqueDashBox.destroy();
                     }
                     taper(){

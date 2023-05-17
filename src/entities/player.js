@@ -43,14 +43,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             } 
             else {
                 mouvement.x = 0;
-                if (this.facing == "right"){
-                    
-                }
-                else if (this.facing == "left")
-                {
-                    
-                    
-                }
+                
             }
             
             mouvement.normalize();
@@ -119,7 +112,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             }
             setTimeout(() => {
                 this.canMove = true
-                this.isDashing = false;
+                this.isDashing = false
                 this.body.setAllowGravity(true)
             }, 250);
             setTimeout(() => {
@@ -152,6 +145,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             this.goingRight = true
             this.goingLeft = false
             this.anims.play("run_left", true).flipX=false;
+        }else{
+            this.anims.play("iddle", true);
         }
         
     }
