@@ -54,6 +54,37 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         
         mouvement.normalize();
         this.setVelocityX(mouvement.x * 300);
+    }else if(this.isFlying){
+
+        if (this.cursors.left.isDown) {
+            
+            mouvement.x = -1;
+            this.direction = "left";
+            this.facing = "left";
+            
+            
+        } 
+        else if (this.cursors.right.isDown) {
+            mouvement.x = 1;
+            this.direction = "right";
+            this.facing = "right";
+            
+            
+        } 
+        else {
+            mouvement.x = 0;
+            if (this.facing == "right"){
+                
+            }
+            else if (this.facing == "left")
+            {
+                
+                
+            }
+        }
+        
+        mouvement.normalize();
+        this.setVelocityX(mouvement.x * 300);
     }
 
         
@@ -61,7 +92,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
             if (this.canFly){
                 this.isFlying = true
-                this.setVelocityY(-500);
+                this.setVelocityY(-700);
                 this.body.setAllowGravity(false)
             }
             else if(this.body.blocked.down){

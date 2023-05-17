@@ -1,3 +1,4 @@
+import HitBoite from "../entities/hitboxJoueur.js";
 import Player from "../entities/player.js";
 
 export default class test extends Phaser.Scene {
@@ -60,8 +61,9 @@ export default class test extends Phaser.Scene {
         this.player.setSize(32,64);
         this.player.setOffset(48,32);
         this.physics.add.collider(this.player, plateformes);
-        this.physics.add.collider(this.testFly, plateformes);
+        this.physics.add.collider(this.testFly, plateformes, this.drift, null, this);
         this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
+        this.physics.add.overlap(HitBoite, this.testFly, this.taper , null, this)
         plateformes.setCollisionByExclusion(-1, true);
                         
                         
@@ -99,16 +101,26 @@ export default class test extends Phaser.Scene {
     invoqueAttaque(){
         this.canHit = false
         if(this.player.goingRight){
-        this.attaqueBox = this.physics.add.sprite(this.player.x + 64,this.player.y, 'hitBoite');
+        this.attaqueBox = new HitBoite(this, this.player.x + 64,this.player.y, 'hitBoite');
         }
-        if(this.player.goingLeft){
-            this.attaqueBox = this.physics.add.sprite(this.player.x - 64,this.player.y, 'hitBoite');
-            }
+        else if(this.player.goingLeft){
+            this.attaqueBox = new HitBoite(this, this.player.x - 64,this.player.y, 'hitBoite');
+        }else{
+            this.attaqueBox = new HitBoite(this, this.player.x + 64,this.player.y, 'hitBoite');
+        }
+        this.physics.add.overlap(this.attaqueBox, this.testFly, this.taper , null, this)
         this.attaqueBox.body.setAllowGravity(false);
 
         setTimeout(() => {
             this.canHit = true
             this.attaqueBox.destroy();
         }, 250);
-    }          
+    } 
+    taper(){
+        this.testFly.setVelocityY(-150);
+        this.testFly.setVelocityX(150);
+    }
+    drift(){
+        this.testFly.setVelocityX(0);
+    }         
 }
