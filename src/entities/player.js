@@ -2,10 +2,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y, texture){
         super(scene, x, y, texture)
         this.cursors = scene.input.keyboard.createCursorKeys();
-        this.clavier = scene.input.keyboard.addKeys('A,D,SPACE,E');
+        this.clavier = scene.input.keyboard.addKeys('A,Z,SPACE,E');
         this.canDash = true
         this.canMove = true
-        this.canFly = true
+        this.canFly = false
         scene.physics.world.enable(this)
         scene.add.existing(this)
         this.setCollideWorldBounds(true);
@@ -61,7 +61,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
             if (this.canFly){
                 this.isFlying = true
-                this.setVelocityY(-700);
+                this.setVelocityY(-500);
                 this.body.setAllowGravity(false)
             }
             else if(this.body.blocked.down){
@@ -96,6 +96,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             }, 2000);
             
         }
+
+        
         
         if (this.isFlying){
             setTimeout(() => {
@@ -120,4 +122,5 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         }
         
     }
+    
 }

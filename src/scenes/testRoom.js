@@ -14,13 +14,17 @@ export default class test extends Phaser.Scene {
         this.load.image("tileset", "src/assets/maps/tileset_temp.png");
         this.load.tilemapTiledJSON("testRoom", "src/assets/maps/map_test.json");
         this.load.spritesheet("player", "src/assets/sprites/player/player.png",{
-            frameWidth: 96,
-            frameHeight: 96,})
+            frameWidth: 128,
+            frameHeight: 128,})
 
 
         this.load.spritesheet('testFly', "src/assets/sprites/possion.png",{
             frameWidth: 32,
             frameHeight: 32
+            })
+        this.load.spritesheet('hitBoite', "src/assets/sprites/hitboxCoup.png",{
+            frameWidth: 64,
+            frameHeight: 64
             })
             
             
@@ -28,6 +32,8 @@ export default class test extends Phaser.Scene {
         }
     
     create(){
+        this.canHit = true
+        this.clavier = this.input.keyboard.addKeys('A,Z,SPACE,E');
             
         const carteDuNiveau = this.add.tilemap("testRoom");
             
@@ -51,6 +57,8 @@ export default class test extends Phaser.Scene {
                         
         this.player = new Player(this, 0, 32*64, 'player');
         this.player.refreshBody();
+        this.player.setSize(32,64);
+        this.player.setOffset(48,32);
         this.physics.add.collider(this.player, plateformes);
         this.physics.add.collider(this.testFly, plateformes);
         this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
@@ -76,11 +84,31 @@ export default class test extends Phaser.Scene {
         console.log(this.player.canFly);
         this.player.update();
 
+        if (Phaser.Input.Keyboard.JustDown(this.clavier.A)){
+            if(this.canHit){
+            this.invoqueAttaque();
+            }
+        }
+
     }
 
     flyReset(){
         this.player.canFly = true;
         console.log(this.player.canFly)
     }
-                    
+    invoqueAttaque(){
+        this.canHit = false
+        if(this.player.goingRight){
+        this.attaqueBox = this.physics.add.sprite(this.player.x + 64,this.player.y, 'hitBoite');
+        }
+        if(this.player.goingLeft){
+            this.attaqueBox = this.physics.add.sprite(this.player.x - 64,this.player.y, 'hitBoite');
+            }
+        this.attaqueBox.body.setAllowGravity(false);
+
+        setTimeout(() => {
+            this.canHit = true
+            this.attaqueBox.destroy();
+        }, 250);
+    }          
 }
