@@ -197,7 +197,7 @@ export default class test extends Phaser.Scene {
                             this.attaqueDashBox.destroy();
                             this.hitBoxDroiteExiste = false;
                             this.hitBoxGaucheExiste = false;
-                            console.log("j'ai pété la boite")
+                          
                         }, 300);
                         this.attaqueDashBox.destroy();
                     }
