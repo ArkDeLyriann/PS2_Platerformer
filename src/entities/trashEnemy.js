@@ -43,7 +43,7 @@ update(time,delta){
     }
 
 
-    getHit(projectile){
+    getHit(hitbox){
         this.hp -= 1; 
         this.playDamageTween(); 
         this.scene.time.delayedCall(500, () => {
