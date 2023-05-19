@@ -6,7 +6,7 @@ export default class TrashEnemy extends Phaser.Physics.Arcade.Sprite{
         scene.physics.add.existing(this); //Donne un physic body à l'objet
 
         //Mixins collisions
-        Object.assign(this, collidable); 
+        
 
         this.init();
         this.initEvents(); 
@@ -14,7 +14,7 @@ export default class TrashEnemy extends Phaser.Physics.Arcade.Sprite{
 
     init(){
         //Variables entité
-        this.speed = 50; 
+        
         
 
         this.damages = 20; 
