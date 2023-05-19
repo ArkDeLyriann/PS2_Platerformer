@@ -27,7 +27,7 @@ export default class TrashEnemy extends Phaser.Physics.Arcade.Sprite{
  
 
         //Physique avec le monde
-        this.body.setGravityY(this.gravity); 
+         
         this.setCollideWorldBounds(true);  
         this.setImmovable(true);  
         
@@ -45,13 +45,8 @@ update(time,delta){
 
     getHit(hitbox){
         this.hp -= 1; 
-        this.playDamageTween(); 
-        this.scene.time.delayedCall(500, () => {
-            this.clearTint(); 
-        });
-
+        console.log("hihi")
         if(this.hp <= 0){
-            this.rayGraphics.destroy(); 
             this.destroy();
 
             //VISUAL EFFECT PARTICLES

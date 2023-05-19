@@ -69,7 +69,7 @@ export default class test extends Phaser.Scene {
                             );
                             
                             this.testFly = this.physics.add.sprite(32*32, 21*32, 'testFly');
-                            this.trash = new TrashEnemy(this, 0, 32*64, 'ennemy1');
+                            this.trash = new TrashEnemy(this, 0, 0, 'ennemy1');
                             this.physics.add.collider(this.trash, plateformes); 
                             
                             
@@ -165,6 +165,7 @@ export default class test extends Phaser.Scene {
                                 this.attaqueBox.setSize(256,96)
                                 
                             }
+                            this.physics.add.overlap(this.attaqueBox, this.trash, this.taperEnnemy, null, this);
                             this.physics.add.overlap(this.attaqueBox, this.testFly, this.taper , null, this)
                             this.attaqueBox.body.setAllowGravity(false);
                             
@@ -193,6 +194,7 @@ export default class test extends Phaser.Scene {
                                 this.attaqueDashBox = new HitBoite(this, this.player.x + 64,this.player.y, 'hitBoite');
                                 
                             }
+                            
                             this.physics.add.overlap(this.attaqueDashBox, this.testFly, this.taper , null, this)
                             this.attaqueDashBox.body.setAllowGravity(false);
                             
@@ -209,6 +211,11 @@ export default class test extends Phaser.Scene {
                             
                             this.testFly.setVelocityY(-150);
                             this.testFly.setVelocityX(150);
+                        }
+                        taperEnnemy(hitbox, ennemy){
+                            ennemy.getHit(hitbox)
+                            console.log("j'ai tapé")
+                            
                         }
                         drift(){
                             this.testFly.setVelocityX(0);
