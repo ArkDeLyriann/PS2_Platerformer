@@ -75,9 +75,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 this.facing = "right";
                 
                 
+            }else {
+                mouvement.x = 0;
+                this.goingLeft = false
+                this.goingRight = false
+                
             } 
             
-            else if (this.cursors.down.isDown) {
+            if (this.cursors.down.isDown) {
                 mouvement.y = 1;
 
                 
@@ -155,6 +160,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         if (this.isFlying){
             setTimeout(() => {
                 this.canFly = false
+                this.canMove = true
                 this.body.setAllowGravity(true)
                 this.isFlying = false
             }, 30000);
