@@ -20,7 +20,7 @@ export default class TrashEnemy extends Phaser.Physics.Arcade.Sprite{
         this.damages = 20; 
         this.attackDamages = 0; 
 
-        this.hp = 5; 
+        this.hp = 50; 
         this.protected = false;
         
 
@@ -45,7 +45,7 @@ update(time,delta){
 
     getHit(hitbox){
         this.hp -= 1; 
-        console.log("hihi")
+        console.log(this.hp)
         if(this.hp <= 0){
             this.destroy();
 

@@ -174,6 +174,7 @@ export default class test extends Phaser.Scene {
                                 this.attaqueBox.destroy();
                                 this.hitBoxDroiteExiste = false;
                                 this.hitBoxGaucheExiste = false;
+                                this.hitBoxBasExiste = false;
                             }, 250);
                             
                         } 
