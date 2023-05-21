@@ -211,7 +211,7 @@ export default class test extends Phaser.Scene {
                                 this.attaqueDashBox.destroy();
 
                                 
-                            }, 50);
+                            }, 10);
                             
                         }
                         taper(){

@@ -102,7 +102,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             }
             
             mouvement.normalize();
-            this.setVelocity(mouvement.x * 300, mouvement.y * 300 );
+            this.setVelocity(mouvement.x * 500, mouvement.y * 500 );
             
             
         }
