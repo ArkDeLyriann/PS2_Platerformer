@@ -40,6 +40,9 @@ export default class test extends Phaser.Scene {
             frameWidth: 256,
             frameHeight: 64
         })
+        this.load.spritesheet("pew", "src/assets/sprites/pew.png",{
+            frameWidth: 16,
+            frameHeight: 16,})
                 
                 
                 
@@ -115,7 +118,6 @@ export default class test extends Phaser.Scene {
                             }
                             if(this.player.isDashing){
                                 this.testCollide.active = false;
-                                this.invoqueAttaqueDash();
                                 setTimeout(() => {
                                     this.testCollide.active = true;
                                 }, 250);
@@ -128,9 +130,12 @@ export default class test extends Phaser.Scene {
                                 this.attaqueBox.x = this.player.x -64;
                                 this.attaqueBox.y = this.player.y;
                             }
-                            if (this.hitBoxBasExiste){
+                            if (this.hitBoxBaseExiste){
                                 this.attaqueBox.x = this.player.x;
                                 this.attaqueBox.y = this.player.y;
+                            }if (this.hitBoxUPExiste){
+                                this.attaqueBox.x = this.player.x;
+                                this.attaqueBox.y = this.player.y - 40;
                             }
                             
                         }
@@ -143,10 +148,23 @@ export default class test extends Phaser.Scene {
                             this.canHit = false
                             
                             if (this.player.isJumping){
-                                this.hitBoxBasExiste = true
+                                if (this.player.goingLeft){
+                                this.hitBoxGaucheExiste = true
+                                this.attaqueBox = new HitBoite(this, this.player.x - 64,this.player.y, 'hitBoite');
+                                }else if(this.player.goingRight){
+                                this.hitBoxDroiteExiste = true
+                                this.attaqueBox = new HitBoite(this, this.player.x + 64,this.player.y, 'hitBoite');
+                                }else if(this.player.regardeBas){
+                                this.hitBoxBaseExiste = true
                                 
                                 this.attaqueBox = new HitBoite(this, this.player.x,this.player.y, 'fSpin');
-                                this.attaqueBox.setSize(128,128)
+                                this.attaqueBox.setSize(256,96)
+                                }else{
+                                this.hitBoxUPExiste = true
+                                
+                                this.attaqueBox = new HitBoite(this, this.player.x,this.player.y-40, 'hitBoite');
+                                
+                                }
                                 
                                 
                             }
@@ -159,69 +177,53 @@ export default class test extends Phaser.Scene {
                                 this.attaqueBox = new HitBoite(this, this.player.x - 64,this.player.y, 'hitBoite');
                             }else{
                                 
-                                this.hitBoxBasExiste = true
-                                
-                                this.attaqueBox = new HitBoite(this, this.player.x,this.player.y, 'fSpin');
-                                this.attaqueBox.setSize(256,96)
+                                this.pewPew();
                                 
                             }
                             this.physics.add.overlap(this.attaqueBox, this.trash, this.taperEnnemy, null, this);
                             this.physics.add.overlap(this.attaqueBox, this.testFly, this.taper , null, this)
                             this.attaqueBox.body.setAllowGravity(false);
-                            
+
                             setTimeout(() => {
                                 this.canHit = true
                                 this.attaqueBox.destroy();
                                 this.hitBoxDroiteExiste = false;
                                 this.hitBoxGaucheExiste = false;
-                                this.hitBoxBasExiste = false;
+                                this.hitBoxBaseExiste = false;
+                                this.hitBoxUPExiste = false;
                             }, 250);
                             
                         } 
                         
-                        invoqueAttaqueDash(){
-                            this.canHit = false
-                            if(this.player.goingRight){
-                                
-                                this.attaqueDashBox = new HitBoite(this, this.player.x + 64,this.player.y, 'hitBoite');
-                                
-                            }
-                            else if(this.player.goingLeft){
-                                
-                                this.attaqueDashBox = new HitBoite(this, this.player.x - 64,this.player.y, 'hitBoite');
-                                
-                            }else{
-                                
-                                this.attaqueDashBox = new HitBoite(this, this.player.x + 64,this.player.y, 'hitBoite');
-                                
-                            }
-                            this.physics.add.overlap(this.attaqueDashBox, this.trash, this.taperEnnemy, null, this);
-                            this.physics.add.overlap(this.attaqueDashBox, this.testFly, this.taper , null, this)
-                            this.attaqueDashBox.body.setAllowGravity(false);
-                            
-                            setTimeout(() => {
-                                this.canHit = true
-                                this.attaqueDashBox.destroy();
-                                this.hitBoxDroiteExiste = false;
-                                this.hitBoxGaucheExiste = false;
-                                
-                            }, 300);
-                            setTimeout(() => {
 
-                                this.attaqueDashBox.destroy();
-
-                                
-                            }, 10);
-                            
-                        }
                         taper(){
                             
                             this.testFly.setVelocityY(-150);
                             this.testFly.setVelocityX(150);
                         }
+                        pewPew(){
+                            this.canHit = true
+                            this.pewBox1 = new HitBoite(this, this.player.x - 64,this.player.y, 'pew');
+                            this.pewBox2 = new HitBoite(this, this.player.x - 64,this.player.y, 'pew');
+                            this.physics.add.overlap(this.pewBox1, this.trash, this.taperEnnemy, null, this);
+                            this.physics.add.overlap(this.pewBox2, this.trash, this.taperEnnemy, null, this);
+                            this.pewBox1.setVelocityX(800);
+                            this.pewBox2.setVelocityX(-800);
+                            this.pewBox1.body.setAllowGravity(false);
+                            this.pewBox2.body.setAllowGravity(false);
+                       
+                            setTimeout(() => {
+                                this.canHit = true
+                                this.pewBox1.destroy();
+                                this.pewBox2.destroy();
+                                
+                            }, 600);
+
+                        }
                         taperEnnemy(hitbox, ennemy){
                             ennemy.getHit(hitbox)
                             console.log("j'ai tapé")
+                            hitbox.destroy();
                             
                         }
                         drift(){

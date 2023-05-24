@@ -8,6 +8,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         this.regardeBas = false
         this.isJumping = false
         this.canFly = false
+        this.canMoveFly = true
         this.isDashing = false
         scene.physics.world.enable(this)
         scene.add.existing(this)
@@ -18,7 +19,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     
     update(){
         
-        this.healthPoints = 6
+
         
         var mouvement = new Phaser.Math.Vector2(0, 0);
 
@@ -49,6 +50,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 mouvement.x = 0;
                 this.goingLeft = false
                 this.goingRight = false
+                this.regardeBas = false
                 
             }
             if (Phaser.Input.Keyboard.JustDown(this.cursors.down)){
@@ -59,7 +61,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             
             mouvement.normalize();
             this.setVelocityX(mouvement.x * 300);
-        }else if(this.isFlying){
+        }else if(this.isFlying && this.canMoveFly){
             
             if (this.cursors.left.isDown) {
                 
@@ -79,7 +81,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 mouvement.x = 0;
                 this.goingLeft = false
                 this.goingRight = false
-                
+                this.regardeBas = false
             } 
             
             if (this.cursors.down.isDown) {
@@ -88,7 +90,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 
                 
             }else if (this.cursors.up.isDown) {
-                console.log("baise")
                 mouvement.y = -1;
 
                 
@@ -98,7 +99,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 mouvement.y = 0;
                 this.goingLeft = false
                 this.goingRight = false
-                
+                this.regardeBas = false
             }
             
             mouvement.normalize();
@@ -111,6 +112,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             if (this.canFly){
                 this.isFlying = true
                 this.canMove = false
+                this.canDash = false
                 console.log(this.isFlying)
                 this.body.setAllowGravity(false)
             }
@@ -119,12 +121,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         }  
         
         if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
+            this.aimUP = true;
+            this.goingLeft = false;
+            this.goingRight = false;
+            this.regardeBas = false;
             if(this.body.blocked.down){
-                this.isJumping = true
+                this.isJumping = true;
                 this.setVelocityY(-550);
             }
             else if (this.canJump){
-                this.isJumping = true
+                this.isJumping = true;
                 this.canJump = false;
                 this.setVelocityY(-550);
             }
@@ -134,36 +140,63 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             this.canJump = true
             this.isDashing = true
             this.canDash = false
-            this.canMove = false
-            this.body.setAllowGravity(false)
-            if(this.goingLeft){
-                this.setVelocityX(-950)               
+            
+            
+            if (!this.isFlying){
+                if(this.goingLeft){
+                    this.canMove = false
+                    this.body.setAllowGravity(false)
+                    this.setVelocityX(-950)               
+                }
+                if(this.goingRight){
+                    this.canMove = false
+                    this.body.setAllowGravity(false)
+                    this.setVelocityX(950)
+                }
+                setTimeout(() => {
+                    this.canMove = true
+                    this.isDashing = false
+                    this.body.setAllowGravity(true)
+                }, 250);
+                setTimeout(() => {
+                    this.canDash = true
+                    
+                    
+                }, 2000);
+            }else{
+                if(this.goingLeft){
+                    this.canMoveFly = false;
+                    this.setVelocityX(-950);               
+                }
+                if(this.goingRight){
+                    this.canMoveFly = false;
+                    this.setVelocityX(950);
+                }
+                setTimeout(() => {
+                    this.isDashing = false;
+                    this.canMoveFly = true;
+                }, 250);
+                setTimeout(() => {
+                    this.canDash = true;
+                    
+                    
+                }, 2000);
+
             }
-            if(this.goingRight){
-                this.setVelocityX(950)
-            }
-            setTimeout(() => {
-                this.canMove = true
-                this.isDashing = false
-                this.body.setAllowGravity(true)
-            }, 250);
-            setTimeout(() => {
-                this.canDash = true
-                
-                
-            }, 2000);
             
         }
         
         
         
         if (this.isFlying){
+            this.canDash = false;
             setTimeout(() => {
-                this.canFly = false
-                this.canMove = true
-                this.body.setAllowGravity(true)
-                this.isFlying = false
-            }, 30000);
+                this.canFly = false;
+                this.canMove = true;
+                this.body.setAllowGravity(true);
+                this.isFlying = false;
+                this.canDash = true;
+            }, 3000);
         }
         
         
@@ -172,11 +205,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         if (mouvement.x < 0) {
             this.goingLeft = true
             this.goingRight = false
+            this.regardeBas = false
             this.anims.play("run_left", true).flipX=true;
         }
         else if (mouvement.x > 0) {
             this.goingRight = true
             this.goingLeft = false
+            this.regardeBas = false
             this.anims.play("run_left", true).flipX=false;
         }else{
             this.anims.play("iddle", true);
