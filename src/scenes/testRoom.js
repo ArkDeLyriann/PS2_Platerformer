@@ -40,7 +40,7 @@ export default class test extends Phaser.Scene {
             frameWidth: 256,
             frameHeight: 64
         })
-        this.load.spritesheet("pew", "src/assets/sprites/pew.png",{
+        this.load.spritesheet("pew", "src/assets/sprites/player/pew.png",{
             frameWidth: 16,
             frameHeight: 16,})
                 
@@ -151,19 +151,22 @@ export default class test extends Phaser.Scene {
                                 if (this.player.goingLeft){
                                 this.hitBoxGaucheExiste = true
                                 this.attaqueBox = new HitBoite(this, this.player.x - 64,this.player.y, 'hitBoite');
+                                this.attaqueBox.body.setAllowGravity(false);
                                 }else if(this.player.goingRight){
                                 this.hitBoxDroiteExiste = true
                                 this.attaqueBox = new HitBoite(this, this.player.x + 64,this.player.y, 'hitBoite');
+                                this.attaqueBox.body.setAllowGravity(false);
                                 }else if(this.player.regardeBas){
                                 this.hitBoxBaseExiste = true
                                 
                                 this.attaqueBox = new HitBoite(this, this.player.x,this.player.y, 'fSpin');
                                 this.attaqueBox.setSize(256,96)
+                                this.attaqueBox.body.setAllowGravity(false);
                                 }else{
                                 this.hitBoxUPExiste = true
                                 
                                 this.attaqueBox = new HitBoite(this, this.player.x,this.player.y-40, 'hitBoite');
-                                
+                                this.attaqueBox.body.setAllowGravity(false);
                                 }
                                 
                                 
@@ -171,27 +174,30 @@ export default class test extends Phaser.Scene {
                             else if(this.player.goingRight){
                                 this.hitBoxDroiteExiste = true
                                 this.attaqueBox = new HitBoite(this, this.player.x + 64,this.player.y, 'hitBoite');
+                                this.attaqueBox.body.setAllowGravity(false);
                             }
                             else if(this.player.goingLeft){
                                 this.hitBoxGaucheExiste = true
                                 this.attaqueBox = new HitBoite(this, this.player.x - 64,this.player.y, 'hitBoite');
+                                this.attaqueBox.body.setAllowGravity(false);
                             }else{
-                                
+                                this.rangedAtk = true
                                 this.pewPew();
                                 
                             }
                             this.physics.add.overlap(this.attaqueBox, this.trash, this.taperEnnemy, null, this);
                             this.physics.add.overlap(this.attaqueBox, this.testFly, this.taper , null, this)
-                            this.attaqueBox.body.setAllowGravity(false);
-
-                            setTimeout(() => {
-                                this.canHit = true
-                                this.attaqueBox.destroy();
-                                this.hitBoxDroiteExiste = false;
-                                this.hitBoxGaucheExiste = false;
-                                this.hitBoxBaseExiste = false;
-                                this.hitBoxUPExiste = false;
-                            }, 250);
+                            
+                            if (!this.rangedAtk){
+                                setTimeout(() => {
+                                    this.canHit = true
+                                    this.attaqueBox.destroy();
+                                    this.hitBoxDroiteExiste = false;
+                                    this.hitBoxGaucheExiste = false;
+                                    this.hitBoxBaseExiste = false;
+                                    this.hitBoxUPExiste = false;
+                                }, 250);
+                            }
                             
                         } 
                         
@@ -203,21 +209,18 @@ export default class test extends Phaser.Scene {
                         }
                         pewPew(){
                             this.canHit = true
-                            this.pewBox1 = new HitBoite(this, this.player.x - 64,this.player.y, 'pew');
-                            this.pewBox2 = new HitBoite(this, this.player.x - 64,this.player.y, 'pew');
-                            this.physics.add.overlap(this.pewBox1, this.trash, this.taperEnnemy, null, this);
-                            this.physics.add.overlap(this.pewBox2, this.trash, this.taperEnnemy, null, this);
-                            this.pewBox1.setVelocityX(800);
-                            this.pewBox2.setVelocityX(-800);
-                            this.pewBox1.body.setAllowGravity(false);
-                            this.pewBox2.body.setAllowGravity(false);
+                            this.attaqueBox = new HitBoite(this, this.player.x ,this.player.y, 'pew');
+                            this.physics.add.overlap(this.attaqueBox, this.trash, this.taperEnnemy, null, this);
+                            this.attaqueBox.setVelocityX(500);
+                            this.attaqueBox.body.setAllowGravity(false);
+                            this.canHit = true
                        
                             setTimeout(() => {
-                                this.canHit = true
-                                this.pewBox1.destroy();
-                                this.pewBox2.destroy();
                                 
-                            }, 600);
+                                this.attaqueBox.destroy();
+                                this.rangedAtk =false;
+                                
+                            }, 6000);
 
                         }
                         taperEnnemy(hitbox, ennemy){
@@ -230,3 +233,6 @@ export default class test extends Phaser.Scene {
                             this.testFly.setVelocityX(0);
                         }         
                     }
+
+
+                    // Pour résoudre le problème d'attaque ==> mettre les attaques dans la classe joueur
