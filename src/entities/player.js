@@ -1,9 +1,14 @@
+import Melee from "./meleePlayer.js";
+
+
+
 export default class Player extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y, texture){
         super(scene, x, y, texture)
         this.cursors = scene.input.keyboard.createCursorKeys();
         this.clavier = scene.input.keyboard.addKeys('A,Z,SPACE,E,R');
         this.canDash = true
+        this.canHit = true
         this.canMove = true
         this.regardeBas = false
         this.isJumping = false
@@ -13,10 +18,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         scene.physics.world.enable(this)
         scene.add.existing(this)
         this.setCollideWorldBounds(true);
+
+        this.init();
     }
     
     
-    
+    init(){
+        this.coups = new Phaser.GameObjects.Group;
+    }
     update(){
         
 
@@ -217,6 +226,66 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             this.anims.play("iddle", true);
         }
         
+    
+        if (Phaser.Input.Keyboard.JustDown(this.clavier.A)){
+            if(this.canHit){
+                this.attaque()
+            }
+        }
+    
     }
+
+    attaque(){
+
+        if (this.isFlying){        
+            if (this.goingLeft){
+
+            }
+            else if (this.goingRight){
+
+            }
+            else{
+
+            }
+        }else if (this.isJumping){
+            if (this.goingLeft){
+
+            }
+            else if (this.goingRight){
+
+            }
+            else{
+
+            } 
+        }
+        else{
+            if (this.goingLeft){
+                console.log('gauche');
+                this.coup = new Melee (this.scene, this.x -64 , this.y, 'hitBoite' )
+                this.coups.add(this.coup);
+                setTimeout(() => {
+                    this.coup.destroy();
+                }, 30);
+
+            }
+            else if (this.goingRight){
+                console.log('droite');
+                this.coup = new Melee (this.scene, this.x +64 , this.y, 'hitBoite' )
+                this.coups.add(this.coup);
+                setTimeout(() => {
+                    this.coup.destroy();
+                }, 30);
+            }
+            else{
+                console.log('rien');
+                this.coup = new Melee (this.scene, this.x , this.y, 'fSpin' )
+                this.coups.add(this.coup);
+                setTimeout(() => {
+                    this.coup.destroy();
+                }, 30);
+            }
+        }
+    }
+    
     
 }

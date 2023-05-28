@@ -1,4 +1,4 @@
-import HitBoite from "../entities/hitboxJoueur.js";
+import Melee from "../entities/meleePlayer.js";
 import Player from "../entities/player.js";
 import TrashEnemy from "../entities/trashEnemy.js";
 
@@ -81,9 +81,10 @@ export default class test extends Phaser.Scene {
                             this.player.setSize(32,64);
                             this.player.setOffset(48,32);
                             this.physics.add.collider(this.player, plateformes);
+                            this.physics.add.collider(this.player.coups, this.ttrash, this.taper, null, this);
                             this.physics.add.collider(this.testFly, plateformes, this.drift, null, this);
                             this.testCollide = this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
-                            this.physics.add.overlap(HitBoite, this.testFly, this.taper , null, this)
+                            this.physics.add.overlap(Melee, this.testFly, this.taper , null, this)
                             plateformes.setCollisionByExclusion(-1, true);
                             
                             
@@ -104,6 +105,8 @@ export default class test extends Phaser.Scene {
                             this.cameras.main.setBounds(0, 0, 3200, 2240);
                             this.cameras.main.setZoom(1);
                             this.cameras.main.startFollow(this.player);
+
+                        
                             
                             
                         }
@@ -111,127 +114,19 @@ export default class test extends Phaser.Scene {
                             console.log(this.player.canFly);
                             this.player.update();
                             
-                            if (Phaser.Input.Keyboard.JustDown(this.clavier.A)){
-                                if(this.canHit){
-                                    this.invoqueAttaque();
-                                }
-                            }
-                            if(this.player.isDashing){
-                                this.testCollide.active = false;
-                                setTimeout(() => {
-                                    this.testCollide.active = true;
-                                }, 250);
-                            }
-                            if (this.hitBoxDroiteExiste){
-                                this.attaqueBox.x = this.player.x +64;
-                                this.attaqueBox.y = this.player.y;
-                            }
-                            if (this.hitBoxGaucheExiste){
-                                this.attaqueBox.x = this.player.x -64;
-                                this.attaqueBox.y = this.player.y;
-                            }
-                            if (this.hitBoxBaseExiste){
-                                this.attaqueBox.x = this.player.x;
-                                this.attaqueBox.y = this.player.y;
-                            }if (this.hitBoxUPExiste){
-                                this.attaqueBox.x = this.player.x;
-                                this.attaqueBox.y = this.player.y - 40;
-                            }
-                            
                         }
                         
                         flyReset(){
                             this.player.canFly = true;
                             console.log(this.player.canFly)
                         }
-                        invoqueAttaque(){
-                            this.canHit = false
-                            
-                            if (this.player.isJumping){
-                                if (this.player.goingLeft){
-                                this.hitBoxGaucheExiste = true
-                                this.attaqueBox = new HitBoite(this, this.player.x - 64,this.player.y, 'hitBoite');
-                                this.attaqueBox.body.setAllowGravity(false);
-                                }else if(this.player.goingRight){
-                                this.hitBoxDroiteExiste = true
-                                this.attaqueBox = new HitBoite(this, this.player.x + 64,this.player.y, 'hitBoite');
-                                this.attaqueBox.body.setAllowGravity(false);
-                                }else if(this.player.regardeBas){
-                                this.hitBoxBaseExiste = true
-                                
-                                this.attaqueBox = new HitBoite(this, this.player.x,this.player.y, 'fSpin');
-                                this.attaqueBox.setSize(256,96)
-                                this.attaqueBox.body.setAllowGravity(false);
-                                }else{
-                                this.hitBoxUPExiste = true
-                                
-                                this.attaqueBox = new HitBoite(this, this.player.x,this.player.y-40, 'hitBoite');
-                                this.attaqueBox.body.setAllowGravity(false);
-                                }
-                                
-                                
-                            }
-                            else if(this.player.goingRight){
-                                this.hitBoxDroiteExiste = true
-                                this.attaqueBox = new HitBoite(this, this.player.x + 64,this.player.y, 'hitBoite');
-                                this.attaqueBox.body.setAllowGravity(false);
-                            }
-                            else if(this.player.goingLeft){
-                                this.hitBoxGaucheExiste = true
-                                this.attaqueBox = new HitBoite(this, this.player.x - 64,this.player.y, 'hitBoite');
-                                this.attaqueBox.body.setAllowGravity(false);
-                            }else{
-                                this.rangedAtk = true
-                                this.pewPew();
-                                
-                            }
-                            this.physics.add.overlap(this.attaqueBox, this.trash, this.taperEnnemy, null, this);
-                            this.physics.add.overlap(this.attaqueBox, this.testFly, this.taper , null, this)
-                            
-                            if (!this.rangedAtk){
-                                setTimeout(() => {
-                                    this.canHit = true
-                                    this.attaqueBox.destroy();
-                                    this.hitBoxDroiteExiste = false;
-                                    this.hitBoxGaucheExiste = false;
-                                    this.hitBoxBaseExiste = false;
-                                    this.hitBoxUPExiste = false;
-                                }, 250);
-                            }
-                            
-                        } 
                         
-
                         taper(){
                             
                             this.testFly.setVelocityY(-150);
                             this.testFly.setVelocityX(150);
                         }
-                        pewPew(){
-                            this.canHit = true
-                            this.attaqueBox = new HitBoite(this, this.player.x ,this.player.y, 'pew');
-                            this.physics.add.overlap(this.attaqueBox, this.trash, this.taperEnnemy, null, this);
-                            this.attaqueBox.setVelocityX(500);
-                            this.attaqueBox.body.setAllowGravity(false);
-                            this.canHit = true
-                       
-                            setTimeout(() => {
-                                
-                                this.attaqueBox.destroy();
-                                this.rangedAtk =false;
-                                
-                            }, 6000);
 
-                        }
-                        taperEnnemy(hitbox, ennemy){
-                            ennemy.getHit(hitbox)
-                            console.log("j'ai tapé")
-                            hitbox.destroy();
-                            
-                        }
-                        drift(){
-                            this.testFly.setVelocityX(0);
-                        }         
                     }
 
 
