@@ -49,10 +49,7 @@ export default class test extends Phaser.Scene {
             }
             
             create(){
-                this.canHit = true
-                this.hitBoxDroiteExiste = false
-                this.hitBoxGaucheExiste = false
-                this.hitBoxLaserExiste = false
+                
                 this.clavier = this.input.keyboard.addKeys('A,Z,SPACE,E');
                 
                 const carteDuNiveau = this.add.tilemap("testRoom");
@@ -105,6 +102,7 @@ export default class test extends Phaser.Scene {
                             this.cameras.main.startFollow(this.player);
 
                             this.physics.add.overlap(this.player.coups, this.trash, this.taper, null, this);
+                            this.physics.add.overlap(this.player.projectiles, this.trash, this.projectHit, null, this);
                             
                             
                         }
@@ -118,9 +116,15 @@ export default class test extends Phaser.Scene {
                             this.player.canFly = true;
                             console.log(this.player.canFly)
                         }
+
+                        taper(coup, ennemy){
+                            ennemy.getHit();
+                            console.log("hého")
+                        }
                         
-                        taper(){
-                            
+                        projectHit(projectile, ennemy){
+                            ennemy.getHit();
+                            projectile.hit();
                             console.log("ca touche")
                         }
 

@@ -255,13 +255,19 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 this.coups.add(this.coup);
                 setTimeout(() => {
                     this.coup.destroy();
-                }, 10);
+                }, 30);
             }
             else if (this.goingRight){
-
+                this.coup = new Melee (this.scene, this.x +64 , this.y, 'hitBoite' )
+                this.coups.add(this.coup);
+                setTimeout(() => {
+                    this.coup.destroy();
+                }, 30);
             }
             else{
-
+                const pew = new Tir(this.scene, this.x, this.y + 5); 
+                this.projectiles.add (pew); 
+                pew.fire(this);
             } 
         }
         else{
@@ -271,7 +277,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 this.coups.add(this.coup);
                 setTimeout(() => {
                     this.coup.destroy();
-                }, 10);
+                }, 30);
 
             }
             else if (this.goingRight){
@@ -280,13 +286,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 this.coups.add(this.coup);
                 setTimeout(() => {
                     this.coup.destroy();
-                }, 10);
+                }, 30);
             }
             else{
                 console.log('rien');
-                const beam = new Tir(this.scene, this.x, this.y + 5); 
-                this.projectiles.add(beam); 
-                beam.fire(this);
+                const pew = new Tir(this.scene, this.x, this.y + 5); 
+                this.projectiles.add (pew); 
+             pew.fire(this);
             }
         }
     }
