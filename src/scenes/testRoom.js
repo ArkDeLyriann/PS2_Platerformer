@@ -72,7 +72,7 @@ export default class test extends Phaser.Scene {
                             );
                             
                             this.testFly = this.physics.add.sprite(32*32, 21*32, 'testFly');
-                            this.trash = new TrashEnemy(this, 0, 0, 'ennemy1');
+                            this.trash = new TrashEnemy(this, 64, 0, 'ennemy1');
                             this.physics.add.collider(this.trash, plateformes); 
                             
                             
@@ -81,10 +81,8 @@ export default class test extends Phaser.Scene {
                             this.player.setSize(32,64);
                             this.player.setOffset(48,32);
                             this.physics.add.collider(this.player, plateformes);
-                            this.physics.add.collider(this.player.coups, this.ttrash, this.taper, null, this);
                             this.physics.add.collider(this.testFly, plateformes, this.drift, null, this);
                             this.testCollide = this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
-                            this.physics.add.overlap(Melee, this.testFly, this.taper , null, this)
                             plateformes.setCollisionByExclusion(-1, true);
                             
                             
@@ -106,12 +104,12 @@ export default class test extends Phaser.Scene {
                             this.cameras.main.setZoom(1);
                             this.cameras.main.startFollow(this.player);
 
-                        
+                            this.physics.add.overlap(this.player.coups, this.trash, this.taper, null, this);
                             
                             
                         }
                         update(){
-                            console.log(this.player.canFly);
+                            
                             this.player.update();
                             
                         }
@@ -123,8 +121,7 @@ export default class test extends Phaser.Scene {
                         
                         taper(){
                             
-                            this.testFly.setVelocityY(-150);
-                            this.testFly.setVelocityX(150);
+                            console.log("ca touche")
                         }
 
                     }

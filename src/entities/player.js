@@ -1,5 +1,5 @@
 import Melee from "./meleePlayer.js";
-
+import Tir from "./projectile.js";
 
 
 export default class Player extends Phaser.Physics.Arcade.Sprite{
@@ -25,6 +25,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     
     init(){
         this.coups = new Phaser.GameObjects.Group;
+        this.projectiles = new Phaser.GameObjects.Group;
     }
     update(){
         
@@ -249,7 +250,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             }
         }else if (this.isJumping){
             if (this.goingLeft){
-
+                console.log('gauche');
+                this.coup = new Melee (this.scene, this.x -64 , this.y, 'hitBoite' )
+                this.coups.add(this.coup);
+                setTimeout(() => {
+                    this.coup.destroy();
+                }, 10);
             }
             else if (this.goingRight){
 
@@ -265,7 +271,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 this.coups.add(this.coup);
                 setTimeout(() => {
                     this.coup.destroy();
-                }, 30);
+                }, 10);
 
             }
             else if (this.goingRight){
@@ -274,15 +280,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 this.coups.add(this.coup);
                 setTimeout(() => {
                     this.coup.destroy();
-                }, 30);
+                }, 10);
             }
             else{
                 console.log('rien');
-                this.coup = new Melee (this.scene, this.x , this.y, 'fSpin' )
-                this.coups.add(this.coup);
-                setTimeout(() => {
-                    this.coup.destroy();
-                }, 30);
+                const beam = new Tir(this.scene, this.x, this.y + 5); 
+                this.projectiles.add(beam); 
+                beam.fire(this);
             }
         }
     }
