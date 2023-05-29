@@ -1,4 +1,5 @@
 import Player from "../entities/player.js";
+import bossP3 from "../entities/bossP3.js";
 import TrashEnemy from "../entities/trashEnemy.js";
 
 export default class boss extends Phaser.Scene {
@@ -38,8 +39,13 @@ export default class boss extends Phaser.Scene {
             tileset
             );
 
+            this.boss = new bossP3(this, 13*64, 10*64, 'boss');
+            this.physics.add.collider(this.boss, plateformes);
+            this.boss.setScale(1.4);
+            this.boss.setSize(150,256)
+
         
-            this.player = new Player(this, 0, 16*64, 'player');
+            this.player = new Player(this, 0, 12*64, 'player');
             this.player.refreshBody();
             this.player.setSize(32,64);
             this.player.setOffset(48,32);
@@ -47,9 +53,9 @@ export default class boss extends Phaser.Scene {
             plateformes.setCollisionByExclusion(-1, true);
 
 
-            this.physics.world.setBounds(0, 0, 1920, 1280);
-            this.cameras.main.setBounds(0, 0, 1920, 1280);
-            this.cameras.main.setZoom(1);
+            this.physics.world.setBounds(0, 0, 1600, 960);
+            this.cameras.main.setBounds(0, 0, 1600, 960);
+            this.cameras.main.setZoom(0.75);
             this.cameras.main.startFollow(this.player);
     }
 
