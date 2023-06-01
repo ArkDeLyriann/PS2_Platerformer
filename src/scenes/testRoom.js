@@ -95,6 +95,12 @@ export default class test extends Phaser.Scene {
                                 frameRate: 12,
                                 repeat: -1
                             });
+                            this.anims.create({
+                                key: "hit",
+                                frames: this.anims.generateFrameNumbers("player", { start: 24, end: 27 }),
+                                frameRate: 16,
+                                repeat: -1
+                            });
                             
                             this.physics.world.setBounds(0, 0, 3200, 2240);
                             this.cameras.main.setBounds(0, 0, 3200, 2240);
