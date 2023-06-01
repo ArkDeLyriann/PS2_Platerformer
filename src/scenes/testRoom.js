@@ -98,7 +98,7 @@ export default class test extends Phaser.Scene {
                             this.anims.create({
                                 key: "hit",
                                 frames: this.anims.generateFrameNumbers("player", { start: 24, end: 27 }),
-                                frameRate: 16,
+                                frameRate: 10,
                                 repeat: -1
                             });
                             

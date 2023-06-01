@@ -288,7 +288,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                     this.coup.destroy();
                     this.punching =false
                     this.canHit = true
-                }, 300);
+                }, 500);
 
             }
             else if (this.goingRight){
@@ -300,7 +300,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                     this.coup.destroy();
                     this.punching = false
                     this.canHit = true
-                }, 300);
+                }, 500);
             }
             else{
                
@@ -313,7 +313,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                         this.coup.destroy();
                         this.punching = false
                         this.canHit = true
-                    }, 300);
+                    }, 500);
                 this.anims.play("hit", true).flipX=true;
                 }else if(this.facing = "right"){
                     console.log('droite');
@@ -324,7 +324,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                         this.coup.destroy();
                         this.punching = false
                         this.canHit = true
-                    }, 300);
+                    }, 500);
                     
                 }    
              
