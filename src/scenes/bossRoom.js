@@ -91,7 +91,7 @@ export default class boss extends Phaser.Scene {
         
         for(let i = 0; i < 25; i++) {
             let eclair = null
-            this.time.delayedCall(600 * i, () => {
+            this.time.delayedCall(300 * i, () => {
                 eclair = this.physics.add.sprite(i*64, 100, 'eclair')
                 this.eclairs.add(eclair);
                 eclair.setVelocityY(+300);
@@ -105,36 +105,67 @@ export default class boss extends Phaser.Scene {
     }
 
     pattern2(){
-        if(this.boss.pattern2Dispo){
+        if(this.boss.pattern2Dispo){        
+            for(let i = 0; i < 10; i++) {
+                let eclair = null
+                this.time.delayedCall(300 * i, () => {
+                    eclair = this.physics.add.sprite(1600-i*64, 900, 'eclair')
+                    this.eclairs.add(eclair);
+                    eclair.setVelocityY(-600);
+                    eclair.body.setAllowGravity(false)
+                    eclair.anims.play("zap", true);
+                });
+            }
+            for(let i = 0; i < 13; i++) {
+                let eclair = null
+                this.time.delayedCall(300 * i, () => {
+                    eclair = this.physics.add.sprite(i*64, 900, 'eclair')
+                    this.eclairs.add(eclair);
+                    eclair.setAccelerationY(-300);
+                    eclair.body.setAllowGravity(false)
+                    eclair.anims.play("zap", true);
+                });
+            }    
 
-        
-        for(let i = 0; i < 10; i++) {
-            let eclair = null
-            this.time.delayedCall(500 * i, () => {
-                eclair = this.physics.add.sprite(1600-i*64, 900, 'eclair')
-                this.eclairs.add(eclair);
-                eclair.setVelocityY(-500);
-                eclair.body.setAllowGravity(false)
-                eclair.anims.play("zap", true);
-            });
-        }
-        for(let i = 13; i < 25; i++) {
-            let eclair = null
-            this.time.delayedCall(500 * i, () => {
-                eclair = this.physics.add.sprite(1600-i*64, 900, 'eclair')
-                this.eclairs.add(eclair);
-                eclair.setAccelerationY(-300);
-                eclair.body.setAllowGravity(false)
-                eclair.anims.play("zap", true);
-            });
+            this.boss.pattern2Dispo = false
         }    
+    }
 
-        this.boss.pattern2Dispo = false
+    pattern3(){
+        if(this.boss.pattern3Dispo){     
+            var angle = 0;
+            
+            var nbInterval = 0;
+            var interval = setInterval(() => {
+                var x = Math.cos(angle);
+                var y = Math.sin(angle);
+            
+                var eclair = this.physics.add.sprite(500, 500, 'pew')
+                this.eclairs.add(eclair);
+                eclair.x += (x*50);
+                eclair.y += (y*50);
+                eclair.setVelocityX(x*300);
+                eclair.setVelocityY(y*300);
+                eclair.body.setAllowGravity(false)
+                
+                console.log(eclair.body.velocity);
+                
+                nbInterval++;
+                angle += 0.3 * Math.PI;
+                
+
+                if(nbInterval > 12) clearInterval(interval);
+            
+            }, 100);
+                
+            
+
+            this.boss.pattern3Dispo = false
         }    
     }
 
     patternToucheJoueur(eclair, joueur){
-
+        console.log("VRIOUCH ECLAIR")
         eclair.destroy();
 
 

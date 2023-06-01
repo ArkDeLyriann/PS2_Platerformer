@@ -19,6 +19,7 @@ export default class bossP3 extends Phaser.Physics.Arcade.Sprite{
         this.hp = 200
         this.pattern1Dispo = true;
         this.pattern2Dispo = true;
+        this.pattern3Dispo = true;
         this.setCollideWorldBounds(true);  
         this.setImmovable(true);  
 
@@ -26,12 +27,12 @@ export default class bossP3 extends Phaser.Physics.Arcade.Sprite{
 
     update(){
         this.anims.play("idle", true);
-        this.scene.pattern1();
+        this.scene.pattern3();
         
-        setTimeout(() => {
-            this.scene.pattern2(); 
+        //setTimeout(() => {
+            //this.scene.pattern2(); 
 
-        }, 3000);
+        //}, 3000);
     }
 
     getHit(hitbox){
