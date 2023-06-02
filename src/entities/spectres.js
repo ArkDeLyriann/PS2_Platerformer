@@ -23,7 +23,8 @@ export default class Spectres extends Phaser.Physics.Arcade.Sprite{
             repeat: -1
         });
 
-        this.damages = 20; 
+        this.damages = 20;
+        this.dir ="" 
         
 
         this.hp = 50; 
@@ -36,7 +37,7 @@ export default class Spectres extends Phaser.Physics.Arcade.Sprite{
         //Physique avec le monde
         this.body.setAllowGravity(false); 
         this.setCollideWorldBounds(true);  
-        this.setImmovable(true);  
+          
         
         
     }
@@ -46,23 +47,30 @@ export default class Spectres extends Phaser.Physics.Arcade.Sprite{
         this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this); 
     }
     update(time,delta){
+        
+
+        if(this.hp >0){
         this.deplacement();
         this.anims.play("spectreIdle", true);
+        }
+        
         
     }
 
 
 
     deplacement(){
-        if(!this.body || !this.body.onFloor()){
-            return; 
-        }
+       // if(!this.body || !this.body.onFloor()){
+            //return; 
+        //}
 
         if(this.x <= this.minX){
-            this.setVelocityX(this.speed);
+            console.log("broute")
+            this.setVelocityX(150);
             this.dir = "right";
         }else if(this.x >= this.maxX){
-            this.setVelocityX(-this.speed);
+            console.log("pouet")
+            this.setVelocityX(-150);
             this.dir = "left"; 
         }
 

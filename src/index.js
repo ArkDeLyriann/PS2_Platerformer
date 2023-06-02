@@ -8,7 +8,8 @@ import boss from "./scenes/bossRoom.js";
 var config = {
     type: Phaser.AUTO,
     width: 1280, // largeur en pixels
-    height: 720, // hauteur en pixels
+    height: 720,
+    //pixelArt: true, // hauteur en pixels
     physics: {
       // définition des parametres physiques
       default: "arcade", // mode arcade : le plus simple : des rectangles pour gérer les collisions. Pas de pentes

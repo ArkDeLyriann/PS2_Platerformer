@@ -12,7 +12,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         this.canMove = true
         this.regardeBas = false
         this.isJumping = false
-        this.canFly = false
+        this.canFly = true
         this.canMoveFly = true
         this.isDashing = false
         scene.physics.world.enable(this)
