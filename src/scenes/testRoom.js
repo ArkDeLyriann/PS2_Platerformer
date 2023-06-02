@@ -1,6 +1,6 @@
 import Melee from "../entities/meleePlayer.js";
 import Player from "../entities/player.js";
-import TrashEnemy from "../entities/trashEnemy.js";
+import Spectres from "../entities/spectres.js";
 
 export default class test extends Phaser.Scene {
     constructor() {
@@ -24,9 +24,9 @@ export default class test extends Phaser.Scene {
             
                 
                 
-        this.load.spritesheet('testFly', "src/assets/sprites/possion.png",{
-            frameWidth: 32,
-            frameHeight: 32
+        this.load.spritesheet("spectre", "src/assets/sprites/trashMobs/spectre.png",{
+            frameWidth: 64,
+            frameHeight: 64
         })
         this.load.spritesheet('hitBoite', "src/assets/sprites/hitboxCoup.png",{
             frameWidth: 64,
@@ -68,9 +68,7 @@ export default class test extends Phaser.Scene {
                             tileset
                             );
                             
-                            //this.testFly = this.physics.add.sprite(32*32, 21*32, 'testFly');
-                            //this.trash = new TrashEnemy(this, 64, 0, 'ennemy1');
-                            //this.physics.add.collider(this.trash, plateformes); 
+                        const spawnSpectres  = carteDuNiveau.getObjectLayer("spectres");   
                             
                             
                             this.player = new Player(this, 0, 32*64, 'player');
@@ -109,13 +107,35 @@ export default class test extends Phaser.Scene {
 
                             //this.physics.add.overlap(this.player.coups, this.trash, this.taper, null, this);
                             //this.physics.add.overlap(this.player.projectiles, this.trash, this.projectHit, null, this);
-                            
-                            
+                            const enemies = this.createEnemies(spawnSpectres, plateformes);
+                            this.physics.add.overlap(this.player.projectiles, enemies, this.projectHit, null, this);
+                            this.physics.add.overlap(this.player.coups, enemies, this.taper, null, this);
                         }
                         update(){
                             
                             this.player.update();
                             
+                        }
+
+                        createEnemies(layer, plateformes){
+                            const enemies = new Phaser.GameObjects.Group; 
+                    
+                            
+                            layer.objects.forEach(spawn => {
+                                let enemy = null; 
+                                
+                                
+                                enemy = new Spectres(this,spawn.x, spawn.y);
+                                console.log("je crée un ennemi") 
+                                
+                               
+                                 
+                    
+                                 
+                                enemies.add(enemy); 
+                                
+                            });
+                            return enemies ;
                         }
                         
                         flyReset(){

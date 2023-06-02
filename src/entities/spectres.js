@@ -1,7 +1,7 @@
-export default class TrashEnemy extends Phaser.Physics.Arcade.Sprite{
+export default class Spectres extends Phaser.Physics.Arcade.Sprite{
 
-    constructor(scene, x, y, sprite){
-        super(scene, x,y, sprite); 
+    constructor(scene, x, y){
+        super(scene, x,y, "spectre"); 
         scene.add.existing(this); //Ajoute l'objet à la scène 
         scene.physics.add.existing(this); //Donne un physic body à l'objet
 
@@ -18,7 +18,7 @@ export default class TrashEnemy extends Phaser.Physics.Arcade.Sprite{
         
 
         this.damages = 20; 
-        this.attackDamages = 0; 
+        
 
         this.hp = 50; 
         this.protected = false;
@@ -27,7 +27,7 @@ export default class TrashEnemy extends Phaser.Physics.Arcade.Sprite{
  
 
         //Physique avec le monde
-         
+        this.body.setAllowGravity(false); 
         this.setCollideWorldBounds(true);  
         this.setImmovable(true);  
         
@@ -38,32 +38,30 @@ export default class TrashEnemy extends Phaser.Physics.Arcade.Sprite{
         //Ecoute la fonction update de la scène et appelle la fonction update de l'objet
         this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this); 
     }
-update(time,delta){
+    update(time,delta){
+        this.deplacement();
         
     }
 
 
-    getHit(hitbox){
-        this.hp -= 1; 
-        console.log(this.hp)
-        if(this.hp <= 0){
-            this.destroy();
 
-            //VISUAL EFFECT PARTICLES
+    deplacement(){
+        if(!this.body || !this.body.onFloor()){
+            return; 
+        }
+
+
+
+    }
+
+    getHit(hitbox){
+        if(this.hp >0){
+            this.hp -=1
+        }else{
+            this.destroy()
         }
     }
 
-    playDamageTween(){
-        return this.scene.tweens.add({
-            targets: this,
-            duration: 100,
-            repeat: 2,
-            tint: 0xff0000
-        })
-    }
-
-    setPlatformColliders(layer){
-        this.platformCollidersLayer = layer; 
-    }
+   
 
 }

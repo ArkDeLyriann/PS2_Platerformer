@@ -1,6 +1,6 @@
 import Player from "../entities/player.js";
 import bossP3 from "../entities/bossP3.js";
-import TrashEnemy from "../entities/trashEnemy.js";
+import TrashEnemy from "../entities/spectres.js";
 
 
 export default class boss extends Phaser.Scene {
