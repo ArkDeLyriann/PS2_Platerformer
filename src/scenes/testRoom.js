@@ -76,7 +76,7 @@ export default class test extends Phaser.Scene {
                             this.player = new Player(this, 0, 32*64, 'player');
                             this.player.refreshBody();
                             this.player.setSize(32,64);
-                            this.player.setOffset(48,32);
+                            this.player.setOffset(48,44);
                             this.physics.add.collider(this.player, plateformes);
                             //this.physics.add.collider(this.testFly, plateformes, this.drift, null, this);
                             //this.testCollide = this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
