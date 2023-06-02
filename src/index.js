@@ -24,4 +24,4 @@ var config = {
   
   // création et lancement du jeu
   var game = new Phaser.Game(config);
-  game.scene.start("boss");
+  game.scene.start("test");

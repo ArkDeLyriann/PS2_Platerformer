@@ -140,7 +140,7 @@ export default class boss extends Phaser.Scene {
                 var x = Math.cos(angle);
                 var y = Math.sin(angle);
             
-                var eclair = this.physics.add.sprite(500, 500, 'pew')
+                var eclair = this.physics.add.sprite(13*64, 9*64, 'pew')
                 this.eclairs.add(eclair);
                 eclair.x += (x*50);
                 eclair.y += (y*50);

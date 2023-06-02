@@ -14,7 +14,7 @@ export default class test extends Phaser.Scene {
     
     preload(){
         this.load.image("tileset", "src/assets/maps/tileset_temp.png");
-        this.load.tilemapTiledJSON("testRoom", "src/assets/maps/map_test.json");
+        this.load.tilemapTiledJSON("testRoom", "src/assets/maps/Level.json");
         this.load.spritesheet("player", "src/assets/sprites/player/player_run.png",{
             frameWidth: 128,
             frameHeight: 128,})
@@ -59,18 +59,18 @@ export default class test extends Phaser.Scene {
                     "tileset"
                     );
                     const fond = carteDuNiveau.createLayer(
-                        "Background",
+                        "background",
                         tileset
                         );      
                         
                         const plateformes = carteDuNiveau.createLayer(
-                            "plateformes",
+                            "Plateformes",
                             tileset
                             );
                             
-                            this.testFly = this.physics.add.sprite(32*32, 21*32, 'testFly');
-                            this.trash = new TrashEnemy(this, 64, 0, 'ennemy1');
-                            this.physics.add.collider(this.trash, plateformes); 
+                            //this.testFly = this.physics.add.sprite(32*32, 21*32, 'testFly');
+                            //this.trash = new TrashEnemy(this, 64, 0, 'ennemy1');
+                            //this.physics.add.collider(this.trash, plateformes); 
                             
                             
                             this.player = new Player(this, 0, 32*64, 'player');
@@ -78,8 +78,8 @@ export default class test extends Phaser.Scene {
                             this.player.setSize(32,64);
                             this.player.setOffset(48,32);
                             this.physics.add.collider(this.player, plateformes);
-                            this.physics.add.collider(this.testFly, plateformes, this.drift, null, this);
-                            this.testCollide = this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
+                            //this.physics.add.collider(this.testFly, plateformes, this.drift, null, this);
+                            //this.testCollide = this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
                             plateformes.setCollisionByExclusion(-1, true);
                             
                             
@@ -102,13 +102,13 @@ export default class test extends Phaser.Scene {
                                 repeat: -1
                             });
                             
-                            this.physics.world.setBounds(0, 0, 3200, 2240);
-                            this.cameras.main.setBounds(0, 0, 3200, 2240);
-                            this.cameras.main.setZoom(1);
+                            this.physics.world.setBounds(0, 0, 44800, 4480);
+                            this.cameras.main.setBounds(0, 0, 44800, 4480);
+                            this.cameras.main.setZoom(0.75);
                             this.cameras.main.startFollow(this.player);
 
-                            this.physics.add.overlap(this.player.coups, this.trash, this.taper, null, this);
-                            this.physics.add.overlap(this.player.projectiles, this.trash, this.projectHit, null, this);
+                            //this.physics.add.overlap(this.player.coups, this.trash, this.taper, null, this);
+                            //this.physics.add.overlap(this.player.projectiles, this.trash, this.projectHit, null, this);
                             
                             
                         }
