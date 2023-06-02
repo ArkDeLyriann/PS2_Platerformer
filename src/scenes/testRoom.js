@@ -125,7 +125,7 @@ export default class test extends Phaser.Scene {
                                 let enemy = null; 
                                 
                                 
-                                enemy = new Spectres(this,spawn.x, spawn.y);
+                                enemy = new Spectres(this,spawn.x, spawn.y, spawn.properties[0].value, spawn.properties[1].value);
                                 console.log("je crée un ennemi") 
                                 
                                

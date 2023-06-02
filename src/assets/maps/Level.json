@@ -256,6 +256,17 @@
                  "id":9,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":2240
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":2048
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -268,6 +279,17 @@
                  "id":10,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":2816
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":2560
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -280,6 +302,17 @@
                  "id":11,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":3008
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":2816
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -292,6 +325,17 @@
                  "id":12,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":3392
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":3008
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -304,6 +348,17 @@
                  "id":13,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":5440
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":4160
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -316,6 +371,17 @@
                  "id":14,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":3328
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":3072
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -328,6 +394,17 @@
                  "id":15,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":3840
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":3584
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -340,6 +417,17 @@
                  "id":16,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":7232
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":6784
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -352,6 +440,17 @@
                  "id":17,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":8640
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":8000
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -364,6 +463,17 @@
                  "id":18,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":7552
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":6784
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -376,6 +486,17 @@
                  "id":19,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":6464
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":5440
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -388,6 +509,17 @@
                  "id":20,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":3776
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":3072
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -400,6 +532,17 @@
                  "id":21,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":6016
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":5056
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -412,11 +555,22 @@
                  "id":22,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":6400
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":5824
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
                  "x":6160,
-                 "y":1099.33333333333
+                 "y":1206
                 }, 
                 {
                  "class":"Spectre",
@@ -424,11 +578,22 @@
                  "id":23,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":7424
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":6656
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
                  "x":6944,
-                 "y":617.333333333333
+                 "y":764
                 }, 
                 {
                  "class":"Spectre",
@@ -436,6 +601,17 @@
                  "id":24,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":8768
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":7808
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -448,6 +624,17 @@
                  "id":25,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":9408
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":8832
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -460,6 +647,17 @@
                  "id":26,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":10688
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":10240
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -472,6 +670,17 @@
                  "id":27,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":11520
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":11072
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -484,6 +693,17 @@
                  "id":28,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":12224
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":11520
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -496,6 +716,17 @@
                  "id":29,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":14912
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":14144
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -508,11 +739,22 @@
                  "id":30,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":13056
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":12416
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":13032,
-                 "y":3445.33333333333
+                 "x":12877.3333333333,
+                 "y":3313.33333333333
                 }, 
                 {
                  "class":"Spectre",
@@ -520,11 +762,22 @@
                  "id":31,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":14208
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":13056
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":13748,
-                 "y":3499.33333333333
+                 "x":13729.3333333333,
+                 "y":3564.66666666667
                 }, 
                 {
                  "class":"Spectre",
@@ -532,11 +785,22 @@
                  "id":32,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":14016
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":13440
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":13340,
-                 "y":3821.33333333333
+                 "x":13732,
+                 "y":4028
                 }, 
                 {
                  "class":"Spectre",
@@ -544,11 +808,22 @@
                  "id":33,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":14016
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":12864
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":13390,
-                 "y":3507.33333333333
+                 "x":13267.3333333333,
+                 "y":3832.66666666667
                 }, 
                 {
                  "class":"Spectre",
@@ -556,11 +831,22 @@
                  "id":34,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":14976
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":14336
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":14532,
-                 "y":3959.33333333333
+                 "x":14548,
+                 "y":4034
                 }, 
                 {
                  "class":"Spectre",
@@ -568,11 +854,22 @@
                  "id":35,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":15232
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":14272
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
                  "x":14870,
-                 "y":3931.33333333333
+                 "y":3910
                 }, 
                 {
                  "class":"Spectre",
@@ -580,11 +877,22 @@
                  "id":36,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":16448
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":15488
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":15990,
-                 "y":3905.33333333333
+                 "x":15988,
+                 "y":3967.33333333333
                 }, 
                 {
                  "class":"Spectre",
@@ -592,11 +900,22 @@
                  "id":37,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":17728
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":16832
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":17514,
-                 "y":3991.33333333333
+                 "x":17511,
+                 "y":4077.33333333333
                 }, 
                 {
                  "class":"Spectre",
@@ -604,11 +923,22 @@
                  "id":38,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":14784
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":13824
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":14434,
-                 "y":2629.33333333333
+                 "x":14432.6666666667,
+                 "y":2692
                 }, 
                 {
                  "class":"Spectre",
@@ -616,11 +946,22 @@
                  "id":39,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":18880
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":17792
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":18608,
-                 "y":3407.33333333333
+                 "x":18282.6666666667,
+                 "y":3104.66666666667
                 }, 
                 {
                  "class":"Spectre",
@@ -628,6 +969,17 @@
                  "id":40,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":19328
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":18688
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -640,6 +992,17 @@
                  "id":41,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":17408
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":16704
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -652,6 +1015,17 @@
                  "id":42,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":17984
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":17344
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -664,11 +1038,22 @@
                  "id":43,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":17600
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":16896
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
                  "x":17134,
-                 "y":1603.33333333333
+                 "y":1632.66666666667
                 }, 
                 {
                  "class":"Spectre",
@@ -676,11 +1061,22 @@
                  "id":44,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":18752
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":17792
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":18166,
-                 "y":1401.33333333333
+                 "x":18163.3333333333,
+                 "y":1358.66666666667
                 }, 
                 {
                  "class":"Spectre",
@@ -688,11 +1084,22 @@
                  "id":45,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":21824
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":21120
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":21294,
-                 "y":2719.33333333333
+                 "x":21296,
+                 "y":2813.33333333333
                 }, 
                 {
                  "class":"Spectre",
@@ -700,11 +1107,22 @@
                  "id":46,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":21952
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":30736
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
                  "x":21694,
-                 "y":2701.33333333333
+                 "y":2677.33333333333
                 }, 
                 {
                  "class":"Spectre",
@@ -712,11 +1130,22 @@
                  "id":47,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":20992
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":19648
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
                  "x":20304,
-                 "y":2541.33333333333
+                 "y":2619.33333333333
                 }, 
                 {
                  "class":"Spectre",
@@ -724,11 +1153,22 @@
                  "id":48,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":24064
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":23040
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":28744.4848484848,
-                 "y":2530.66666666667
+                 "x":23508.4848484848,
+                 "y":1270.66666666667
                 }, 
                 {
                  "class":"Spectre",
@@ -736,11 +1176,22 @@
                  "id":49,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":23936
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":22912
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":29347.5151515152,
-                 "y":2988.24242424242
+                 "x":23464.8484848485,
+                 "y":2218.90909090909
                 }, 
                 {
                  "class":"Spectre",
@@ -748,6 +1199,17 @@
                  "id":50,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":30784
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":29568
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -760,11 +1222,22 @@
                  "id":51,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":28416
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":26880
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":27844.4848484848,
-                 "y":1967.0303030303
+                 "x":27842.4848484848,
+                 "y":1941.0303030303
                 }, 
                 {
                  "class":"Spectre",
@@ -772,11 +1245,45 @@
                  "id":52,
                  "name":"Spawn",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":26560
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":25024
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":26396,
-                 "y":1691.27272727273
+                 "x":25562.6666666667,
+                 "y":3163.27272727273
+                }, 
+                {
+                 "class":"Spectre",
+                 "height":0,
+                 "id":53,
+                 "name":"Spawn",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"maxX",
+                         "type":"int",
+                         "value":18816
+                        }, 
+                        {
+                         "name":"minX",
+                         "type":"int",
+                         "value":18368
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":18606.6666666667,
+                 "y":3392
                 }],
          "offsetx":4,
          "offsety":2.66666666666674,
@@ -787,7 +1294,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":53,
+ "nextobjectid":54,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

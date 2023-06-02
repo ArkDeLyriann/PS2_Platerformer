@@ -1,11 +1,12 @@
 export default class Spectres extends Phaser.Physics.Arcade.Sprite{
 
-    constructor(scene, x, y){
-        super(scene, x,y, "spectre"); 
+    constructor(scene, x, y, maxX, minX){
+        super(scene, x,y,"spectre"); 
         scene.add.existing(this); //Ajoute l'objet à la scène 
         scene.physics.add.existing(this); //Donne un physic body à l'objet
 
-        //Mixins collisions
+        this.minX = minX;
+        this.maxX = maxX;
         
 
         this.init();
@@ -15,7 +16,12 @@ export default class Spectres extends Phaser.Physics.Arcade.Sprite{
     init(){
         //Variables entité
         
-        
+        this.anims.create({
+            key: "spectreIdle",
+            frames: this.anims.generateFrameNumbers("spectre", { start: 0, end: 5 }),
+            frameRate: 12,
+            repeat: -1
+        });
 
         this.damages = 20; 
         
@@ -23,6 +29,7 @@ export default class Spectres extends Phaser.Physics.Arcade.Sprite{
         this.hp = 50; 
         this.protected = false;
         
+        this.speed = 150;
 
  
 
@@ -40,6 +47,7 @@ export default class Spectres extends Phaser.Physics.Arcade.Sprite{
     }
     update(time,delta){
         this.deplacement();
+        this.anims.play("spectreIdle", true);
         
     }
 
@@ -50,7 +58,19 @@ export default class Spectres extends Phaser.Physics.Arcade.Sprite{
             return; 
         }
 
+        if(this.x <= this.minX){
+            this.setVelocityX(this.speed);
+            this.dir = "right";
+        }else if(this.x >= this.maxX){
+            this.setVelocityX(-this.speed);
+            this.dir = "left"; 
+        }
 
+        if(this.dir == "right"){
+            this.setFlipX(false);
+        }else if(this.dir == "left"){
+            this.setFlipX(true); 
+        }
 
     }
 
