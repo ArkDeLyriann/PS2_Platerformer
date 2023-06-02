@@ -1,3 +1,5 @@
+
+
 export default class bossP3 extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y, texture){
         super(scene, x, y, texture)
@@ -7,21 +9,31 @@ export default class bossP3 extends Phaser.Physics.Arcade.Sprite{
         scene.add.existing(this)
         this.setCollideWorldBounds(true);
 
-        
+        this.init();
     }
 
 
     init(){
         this.attaques = new Phaser.GameObjects.Group;
-        this.lasers = new Phaser.GameObjects.Group;
+        this.eclairsVerti = new Phaser.GameObjects.Group;
         this.hp = 200
-
+        this.pattern1Dispo = true;
+        this.pattern2Dispo = true;
+        this.pattern3Dispo = true;
         this.setCollideWorldBounds(true);  
         this.setImmovable(true);  
 
     }
 
+    update(){
+        this.anims.play("idle", true);
+        this.scene.pattern3();
+        
+        //setTimeout(() => {
+            //this.scene.pattern2(); 
 
+        //}, 3000);
+    }
 
     getHit(hitbox){
         this.hp -= 1; 
@@ -29,7 +41,9 @@ export default class bossP3 extends Phaser.Physics.Arcade.Sprite{
         if(this.hp <= 0){
             this.destroy();
 
-            //VISUAL EFFECT PARTICLES
+            
         }
     }
+
+   
 }

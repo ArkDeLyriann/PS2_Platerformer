@@ -212,32 +212,37 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         
         this.x = Math.round(this.x);
         
-        if (mouvement.x < 0) {
-            this.goingLeft = true
-            this.goingRight = false
-            this.regardeBas = false
-            this.anims.play("run_left", true).flipX=true;
+        if (this.punching){
+            this.anims.play("hit", true);
         }
         else if (mouvement.x > 0) {
             this.goingRight = true
             this.goingLeft = false
             this.regardeBas = false
             this.anims.play("run_left", true).flipX=false;
-        }else{
+        }else if(mouvement.x < 0) {
+            this.goingLeft = true
+            this.goingRight = false
+            this.regardeBas = false
+            this.anims.play("run_left", true).flipX=true;
+        }
+        else{
             this.anims.play("iddle", true);
         }
         
     
         if (Phaser.Input.Keyboard.JustDown(this.clavier.A)){
             if(this.canHit){
+                this.canHit = false
                 this.attaque()
+                
             }
         }
     
     }
 
     attaque(){
-
+        
         if (this.isFlying){        
             if (this.goingLeft){
 
@@ -255,6 +260,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 this.coups.add(this.coup);
                 setTimeout(() => {
                     this.coup.destroy();
+                    this.canHit = true
                 }, 30);
             }
             else if (this.goingRight){
@@ -262,12 +268,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 this.coups.add(this.coup);
                 setTimeout(() => {
                     this.coup.destroy();
+                    this.canHit = true
                 }, 30);
             }
             else{
                 const pew = new Tir(this.scene, this.x, this.y + 5); 
                 this.projectiles.add (pew); 
                 pew.fire(this);
+                this.canHit = true
             } 
         }
         else{
@@ -275,24 +283,51 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 console.log('gauche');
                 this.coup = new Melee (this.scene, this.x -64 , this.y, 'hitBoite' )
                 this.coups.add(this.coup);
+                this.punching = true
                 setTimeout(() => {
                     this.coup.destroy();
-                }, 30);
+                    this.punching =false
+                    this.canHit = true
+                }, 500);
 
             }
             else if (this.goingRight){
                 console.log('droite');
                 this.coup = new Melee (this.scene, this.x +64 , this.y, 'hitBoite' )
                 this.coups.add(this.coup);
+                this.punching= true
                 setTimeout(() => {
                     this.coup.destroy();
-                }, 30);
+                    this.punching = false
+                    this.canHit = true
+                }, 500);
             }
             else{
-                console.log('rien');
-                const pew = new Tir(this.scene, this.x, this.y + 5); 
-                this.projectiles.add (pew); 
-             pew.fire(this);
+               
+               if(this.facing== "left"){
+                    console.log('gauche');
+                    this.coup = new Melee (this.scene, this.x -32 , this.y, 'hitBoite' )
+                    this.coups.add(this.coup);
+                    this.punching = true
+                    setTimeout(() => {
+                        this.coup.destroy();
+                        this.punching = false
+                        this.canHit = true
+                    }, 500);
+                this.anims.play("hit", true).flipX=true;
+                }else if(this.facing = "right"){
+                    console.log('droite');
+                    this.coup = new Melee (this.scene, this.x +32 , this.y, 'hitBoite' )
+                    this.coups.add(this.coup);
+                    this.punching = true
+                    setTimeout(() => {
+                        this.coup.destroy();
+                        this.punching = false
+                        this.canHit = true
+                    }, 500);
+                    
+                }    
+             
             }
         }
     }
