@@ -18,20 +18,23 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     
     init(){
 
-        this.hp = 100
+        this.hp = 3
         this.canDash = true
         this.canHit = true
         this.canMove = true
         this.regardeBas = false
         this.isJumping = false
-        this.canFly = true
+        this.canFly = false
+        this.feathers = 0
         this.canMoveFly = true
         this.isDashing = false
         this.coups = new Phaser.GameObjects.Group;
         this.projectiles = new Phaser.GameObjects.Group;
     }
     update(){
-        
+        if(this.hp == 0){
+            this.respawn()
+        }
 
         
         var mouvement = new Phaser.Math.Vector2(0, 0);
@@ -122,7 +125,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         }
         
         if (Phaser.Input.Keyboard.JustDown(this.clavier.R)) {
-            if (this.canFly){
+            if (this.feathers>0){
                 this.isFlying = true
                 this.canMove = false
                 this.canDash = false
@@ -244,11 +247,38 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     
     }
 
+
+    savePosition(point){
+        this.lastSaveX = point.x;
+        this.lastSaveY = point.y; 
+        
+        console.log(this.lastSaveX)
+        console.log(this.lastSaveY)
+    }
+
+
+    respawn(){
+        this.disableBody();
+        this.setAlpha(0);
+        this.scene.time.delayedCall(70, () => {
+            this.setAlpha(0);
+        }, this);
+        this.scene.time.delayedCall(500, () => {
+            this.setAlpha(1);
+            this.enableBody();
+            this.setAlpha(1); 
+            this.body.reset(this.lastSaveX, this.lastSaveY - 128); 
+            
+        }, this);
+        this.hp = 3
+        
+    }
+
     takeDmg(ennemy){
         
         if (this.hp >0){
             console.log(this.hp)
-            this.hp-= ennemy.dmg
+            this.hp-= 1
         }
     }
 

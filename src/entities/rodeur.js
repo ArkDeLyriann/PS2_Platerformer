@@ -45,9 +45,11 @@ export default class Rodeur extends Phaser.Physics.Arcade.Sprite{
         if(this.hp >0){
 
             if(this.minX < this.scene.player.x &&  this.scene.player.x <this.maxX){
+                if(this.scene.player.y >= this.y){
                 console.log("hello")
                 
                 this.attaque();
+                }
             }
 
         this.deplacement();

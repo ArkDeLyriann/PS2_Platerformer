@@ -20,9 +20,9 @@ var config = {
     },
     antialias: true,
 
-    scene: [menu, test, boss]
+    scene: [test, boss]
   };
   
   // création et lancement du jeu
   var game = new Phaser.Game(config);
-  game.scene.start("menu");
+  game.scene.start("test");

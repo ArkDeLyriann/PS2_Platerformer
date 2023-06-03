@@ -55,6 +55,10 @@ export default class test extends Phaser.Scene {
             frameWidth: 16,
             frameHeight: 16,})
 
+            this.load.spritesheet("life", "src/assets/sprites/player/lifebar.png",{
+                frameWidth: 288,
+                frameHeight: 96,})
+
             this.load.spritesheet("rodeurPew", "src/assets/sprites/trashMobs/projectile_rodeur.png",{
                 frameWidth: 32,
                 frameHeight: 32,})
@@ -89,10 +93,21 @@ export default class test extends Phaser.Scene {
                             "Plateformes",
                             tileset
                             );
+
+                            const passage = carteDuNiveau.createLayer(
+                                "passage",
+                                tileset
+                                );
                             
                         const spawnSpectres  = carteDuNiveau.getObjectLayer("spectres");
                         
                         const spawnRodeurs  = carteDuNiveau.getObjectLayer("rodeurs"); 
+
+                        const checkPointsLayer = carteDuNiveau.getObjectLayer('checkpoints');
+
+
+
+
                             
                             
                             this.player = new Player(this, 0, 32*64, 'player');
@@ -100,11 +115,12 @@ export default class test extends Phaser.Scene {
                             this.player.setSize(32,64);
                             this.player.setOffset(48,44);
                             this.physics.add.collider(this.player, plateformes);
-                            this.physics.add.overlap(this.player, boules, this.toucheBoule, null, this);
+                            
+                            this.physics.add.overlap(this.player, passage, this.goNext, null, this);
                             //this.physics.add.collider(this.testFly, plateformes, this.drift, null, this);
                             //this.testCollide = this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
                             plateformes.setCollisionByExclusion(-1, true);
-                            
+                            this.barrePV = this.add.sprite(0  ,0, 'life').setScrollFactor(0, 0);
                             
                             this.anims.create({
                                 key: "run_left",
@@ -124,6 +140,34 @@ export default class test extends Phaser.Scene {
                                 frameRate: 10,
                                 repeat: -1
                             });
+
+                            const myCheckpoints = this.createCheckpoint(checkPointsLayer); 
+                            this.physics.add.overlap(this.player, myCheckpoints, this.onCheckpointCollision);
+
+
+                            this.anims.create({
+                                key: "full",
+                                frames: this.anims.generateFrameNumbers("life", { start: 0, end: 0 }),
+                                frameRate: 10,
+                                repeat: -1
+                            });this.anims.create({
+                                key: "-1",
+                                frames: this.anims.generateFrameNumbers("life", { start: 1, end: 1 }),
+                                frameRate: 10,
+                                repeat: -1
+                            });this.anims.create({
+                                key: "-2",
+                                frames: this.anims.generateFrameNumbers("life", { start: 2, end: 2 }),
+                                frameRate: 10,
+                                repeat: -1
+                            });this.anims.create({
+                                key: "-3",
+                                frames: this.anims.generateFrameNumbers("life", { start: 3, end: 3 }),
+                                frameRate: 10,
+                                repeat: -1
+                            });
+
+                            this.physics.add.collider(this.player, passage, this.goNext, null, this);
                             
                             this.physics.world.setBounds(0, 0, 44800, 4480);
                             this.cameras.main.setBounds(0, 0, 44800, 4480);
@@ -138,13 +182,24 @@ export default class test extends Phaser.Scene {
 
 
                             this.physics.add.overlap(this.player.projectiles, spectres, this.projectHit, null, this);
-                            this.physics.add.overlap(this.rodeur.projectiles, this.player, this.projectHit, null, this);
+                            //this.physics.add.overlap(this.rodeur.projectiles, this.player, this.projectHit, null, this);
                             this.physics.add.overlap(this.player.coups, spectres, this.taper, null, this);
                             this.physics.add.overlap(this.player, spectres, this.spectreOnPlayer, null, this);
                         }
                         update(){
                             
                             this.player.update();
+
+
+                            if(this.player.hp == 3){
+                                this.barrePV.anims.play("full", true)
+                            }else if(this.player.hp ==2){
+                                this.barrePV.anims.play("-1", true)
+                            }else if(this.player.hp ==1){
+                                this.barrePV.anims.play("-2", true)
+                            }else if(this.player.hp ==0){
+                                this.barrePV.anims.play("-3", true)
+                            }
                             
                         }
 
@@ -212,6 +267,23 @@ export default class test extends Phaser.Scene {
                             });
                             return boules ;
                         }
+
+                        createCheckpoint(layer){
+                            const groupCheckpoint = new Phaser.GameObjects.Group; 
+                    
+                            layer.objects.forEach(checkpoint => {
+                                const cp = this.physics.add.sprite(checkpoint.x, checkpoint.y, 'none')
+                                cp.setOrigin(0,0)
+                                cp.setAlpha(0)
+                                cp.body.setAllowGravity(false)
+                                cp.setSize(5, 2000); 
+                               
+                    
+                                groupCheckpoint.add(cp); 
+                            })
+                    
+                            return groupCheckpoint; 
+                        }
                         
                         flyReset(){
                             this.player.canFly = true;
@@ -239,6 +311,22 @@ export default class test extends Phaser.Scene {
                             player.canMove = false;
                             boule.bounce(player,boule)
                         }
+                        onCheckpointCollision(player, checkpoint){
+                            player.savePosition(checkpoint);
+                            console.log("checkpoint")
+                        }
+
+
+                        goNext(){
+
+                            console.log("change de scene")
+                            //this.scene.stop();
+                            //this.scene.start("boss",{
+                              //playerHP : this.player.hp,
+                              
+                            //})
+                      
+                          }
 
                     }
 
