@@ -2,6 +2,7 @@ import Melee from "../entities/meleePlayer.js";
 import Player from "../entities/player.js";
 import Spectres from "../entities/spectres.js";
 import Boules from "../entities/boules.js";
+import Rodeur from "../entities/rodeur.js";
 
 export default class test extends Phaser.Scene {
     constructor() {
@@ -32,6 +33,12 @@ export default class test extends Phaser.Scene {
             frameWidth: 64,
             frameHeight: 64
         })
+
+        this.load.spritesheet("rodeur", "src/assets/sprites/trashMobs/rodeur.png",{
+            frameWidth: 64,
+            frameHeight: 90
+        })
+
         this.load.spritesheet('hitBoite', "src/assets/sprites/hitboxCoup.png",{
             frameWidth: 64,
             frameHeight: 64
@@ -77,7 +84,9 @@ export default class test extends Phaser.Scene {
                             tileset
                             );
                             
-                        const spawnSpectres  = carteDuNiveau.getObjectLayer("spectres");   
+                        const spawnSpectres  = carteDuNiveau.getObjectLayer("spectres");
+                        
+                        const spawnRodeurs  = carteDuNiveau.getObjectLayer("rodeurs"); 
                             
                             
                             this.player = new Player(this, 0, 32*64, 'player');
@@ -117,10 +126,14 @@ export default class test extends Phaser.Scene {
 
                             //this.physics.add.overlap(this.player.coups, this.trash, this.taper, null, this);
                             //this.physics.add.overlap(this.player.projectiles, this.trash, this.projectHit, null, this);
-                            const enemies = this.createEnemies(spawnSpectres, plateformes);
-                            this.physics.add.overlap(this.player.projectiles, enemies, this.projectHit, null, this);
-                            this.physics.add.overlap(this.player.coups, enemies, this.taper, null, this);
-                            this.physics.add.overlap(this.player, enemies, this.spectreOnPlayer, null, this);
+                            const spectres = this.createSpectres(spawnSpectres, plateformes);
+
+                            const rodeurs = this.createRodeurs(spawnRodeurs, plateformes);
+
+
+                            this.physics.add.overlap(this.player.projectiles, spectres, this.projectHit, null, this);
+                            this.physics.add.overlap(this.player.coups, spectres, this.taper, null, this);
+                            this.physics.add.overlap(this.player, spectres, this.spectreOnPlayer, null, this);
                         }
                         update(){
                             
@@ -128,8 +141,8 @@ export default class test extends Phaser.Scene {
                             
                         }
 
-                        createEnemies(layer, plateformes){
-                            const enemies = new Phaser.GameObjects.Group; 
+                        createSpectres(layer, plateformes){
+                            const spectres = new Phaser.GameObjects.Group; 
                     
                             
                             layer.objects.forEach(spawn => {
@@ -143,11 +156,34 @@ export default class test extends Phaser.Scene {
                                  
                     
                                  
-                                enemies.add(enemy); 
+                                spectres.add(enemy); 
                                 
                             });
-                            return enemies ;
+                            return spectres ;
                         }
+
+                        createRodeurs(layer, plateformes){
+
+                            const rodeurs = new Phaser.GameObjects.Group;
+                            
+                            layer.objects.forEach(spawn => {
+                                let enemy = null; 
+                                
+                                
+                                enemy = new Rodeur(this,spawn.x, spawn.y, spawn.properties[0].value, spawn.properties[1].value);
+                                console.log("je crée un ennemi") 
+                                
+                               
+                                 
+                    
+                                 
+                                rodeurs.add(enemy); 
+                                
+                            });
+                            return rodeurs ;
+
+                        }
+
 
                         createBoules(layer){
                             const boules = new Phaser.GameObjects.Group; 
