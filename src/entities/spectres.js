@@ -23,14 +23,10 @@ export default class Spectres extends Phaser.Physics.Arcade.Sprite{
             repeat: -1
         });
 
-        this.damages = 20;
         this.dir ="" 
-        
+        this.setVelocityX(150);
 
         this.hp = 50; 
-        this.protected = false;
-        
-        this.speed = 150;
 
  
 
@@ -52,24 +48,31 @@ export default class Spectres extends Phaser.Physics.Arcade.Sprite{
         if(this.hp >0){
         this.deplacement();
         this.anims.play("spectreIdle", true);
+        }else{
+            this.destroy()
         }
         
         
     }
 
-
+    explode(){
+        this.hp = 0
+        console.log("j'explose")
+        //let boom = this.physics.add.sprite(this.x,this.y, "explosion")
+    }
 
     deplacement(){
-       // if(!this.body || !this.body.onFloor()){
-            //return; 
-        //}
+       if(!this.body){
+            return; 
+        }
+        
 
         if(this.x <= this.minX){
-            console.log("broute")
+            
             this.setVelocityX(150);
             this.dir = "right";
         }else if(this.x >= this.maxX){
-            console.log("pouet")
+            
             this.setVelocityX(-150);
             this.dir = "left"; 
         }
@@ -84,9 +87,8 @@ export default class Spectres extends Phaser.Physics.Arcade.Sprite{
 
     getHit(hitbox){
         if(this.hp >0){
-            this.hp -=1
-        }else{
-            this.destroy()
+            this.hp -=25
+            console.log(this.hp)
         }
     }
 

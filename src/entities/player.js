@@ -7,14 +7,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         super(scene, x, y, texture)
         this.cursors = scene.input.keyboard.createCursorKeys();
         this.clavier = scene.input.keyboard.addKeys('A,Z,SPACE,E,R');
-        this.canDash = true
-        this.canHit = true
-        this.canMove = true
-        this.regardeBas = false
-        this.isJumping = false
-        this.canFly = true
-        this.canMoveFly = true
-        this.isDashing = false
+        
         scene.physics.world.enable(this)
         scene.add.existing(this)
         this.setCollideWorldBounds(true);
@@ -24,6 +17,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     
     
     init(){
+
+        this.hp = 100
+        this.canDash = true
+        this.canHit = true
+        this.canMove = true
+        this.regardeBas = false
+        this.isJumping = false
+        this.canFly = true
+        this.canMoveFly = true
+        this.isDashing = false
         this.coups = new Phaser.GameObjects.Group;
         this.projectiles = new Phaser.GameObjects.Group;
     }
@@ -239,6 +242,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
             }
         }
     
+    }
+
+    takeDmg(ennemy){
+        
+        if (this.hp >0){
+            console.log(this.hp)
+        this.hp-= ennemy.dmg
+        }
     }
 
     attaque(){

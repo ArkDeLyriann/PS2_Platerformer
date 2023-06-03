@@ -110,6 +110,7 @@ export default class test extends Phaser.Scene {
                             const enemies = this.createEnemies(spawnSpectres, plateformes);
                             this.physics.add.overlap(this.player.projectiles, enemies, this.projectHit, null, this);
                             this.physics.add.overlap(this.player.coups, enemies, this.taper, null, this);
+                            this.physics.add.overlap(this.player, enemies, this.spectreOnPlayer, null, this);
                         }
                         update(){
                             
@@ -152,6 +153,11 @@ export default class test extends Phaser.Scene {
                             ennemy.getHit();
                             projectile.hit();
                             console.log("ca touche")
+                        }
+
+                        spectreOnPlayer(player, spectre){
+                            player.takeDmg(spectre)
+                            spectre.explode(player, spectre)
                         }
 
                     }
