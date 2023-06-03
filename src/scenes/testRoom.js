@@ -54,6 +54,12 @@ export default class test extends Phaser.Scene {
         this.load.spritesheet("pew", "src/assets/sprites/player/pew.png",{
             frameWidth: 16,
             frameHeight: 16,})
+
+            this.load.spritesheet("rodeurPew", "src/assets/sprites/trashMobs/projectile_rodeur.png",{
+                frameWidth: 32,
+                frameHeight: 32,})
+
+            
                 
                 
                 

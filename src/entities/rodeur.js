@@ -18,7 +18,7 @@ export default class Rodeur extends Phaser.Physics.Arcade.Sprite{
     init(){
         //Variables entité
         
-        
+        this.projectiles = new Phaser.GameObjects.Group;
         this.canHit = true
         this.dir ="" 
         this.setVelocityX(300);
@@ -46,6 +46,7 @@ export default class Rodeur extends Phaser.Physics.Arcade.Sprite{
 
             if(this.minX < this.scene.player.x &&  this.scene.player.x <this.maxX){
                 console.log("hello")
+                
                 this.attaque();
             }
 
@@ -98,15 +99,19 @@ export default class Rodeur extends Phaser.Physics.Arcade.Sprite{
     }
 
     attaque(){
-        if(this.canHit = true){
+        if(this.canHit){
             this.canHit = false
-
+            console.log(this.canHit)
         const pew = new RodeurShoot(this.scene, this.x, this.y); 
         this.projectiles.add (pew); 
         pew.fire(this);
 
-
-        this.canHit = true
+        setTimeout(() => {
+            this.canHit = true
+            
+            
+        }, 2000);
+        
 
     }
     }
