@@ -248,7 +248,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         
         if (this.hp >0){
             console.log(this.hp)
-        this.hp-= ennemy.dmg
+            this.hp-= ennemy.dmg
         }
     }
 

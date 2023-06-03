@@ -1,6 +1,7 @@
 import Melee from "../entities/meleePlayer.js";
 import Player from "../entities/player.js";
 import Spectres from "../entities/spectres.js";
+import Boules from "../entities/boules.js";
 
 export default class test extends Phaser.Scene {
     constructor() {
@@ -22,7 +23,10 @@ export default class test extends Phaser.Scene {
             frameWidth: 64,
             frameHeight: 64,})
             
-                
+        this.load.spritesheet("boule", "src/assets/sprites/trashMobs/boule.png",{
+            frameWidth: 128,
+            frameHeight: 128
+        })  
                 
         this.load.spritesheet("spectre", "src/assets/sprites/trashMobs/spectre.png",{
             frameWidth: 64,
@@ -63,6 +67,11 @@ export default class test extends Phaser.Scene {
                         tileset
                         );      
                         
+
+                        const spawnBoules  = carteDuNiveau.getObjectLayer("boules");
+
+                        const boules = this.createBoules(spawnBoules);
+
                         const plateformes = carteDuNiveau.createLayer(
                             "Plateformes",
                             tileset
@@ -76,6 +85,7 @@ export default class test extends Phaser.Scene {
                             this.player.setSize(32,64);
                             this.player.setOffset(48,44);
                             this.physics.add.collider(this.player, plateformes);
+                            this.physics.add.overlap(this.player, boules, this.toucheBoule, null, this);
                             //this.physics.add.collider(this.testFly, plateformes, this.drift, null, this);
                             //this.testCollide = this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
                             plateformes.setCollisionByExclusion(-1, true);
@@ -138,6 +148,27 @@ export default class test extends Phaser.Scene {
                             });
                             return enemies ;
                         }
+
+                        createBoules(layer){
+                            const boules = new Phaser.GameObjects.Group; 
+                    
+                            
+                            layer.objects.forEach(spawn => {
+                                let boule = null; 
+                                
+                                
+                                boule = new Boules(this,spawn.x, spawn.y, spawn.properties[0].value, spawn.properties[1].value);
+                                console.log("je crée un ennemi") 
+                                
+                               
+                                 
+                    
+                                 
+                                boules.add(boule); 
+                                
+                            });
+                            return boules ;
+                        }
                         
                         flyReset(){
                             this.player.canFly = true;
@@ -158,6 +189,12 @@ export default class test extends Phaser.Scene {
                         spectreOnPlayer(player, spectre){
                             player.takeDmg(spectre)
                             spectre.explode(player, spectre)
+                        }
+
+                        toucheBoule(player, boule){
+                            player.takeDmg(boule)
+                            player.canMove = false;
+                            boule.bounce(player,boule)
                         }
 
                     }
