@@ -138,6 +138,7 @@ export default class test extends Phaser.Scene {
 
 
                             this.physics.add.overlap(this.player.projectiles, spectres, this.projectHit, null, this);
+                            this.physics.add.overlap(this.rodeur.projectiles, this.player, this.projectHit, null, this);
                             this.physics.add.overlap(this.player.coups, spectres, this.taper, null, this);
                             this.physics.add.overlap(this.player, spectres, this.spectreOnPlayer, null, this);
                         }
