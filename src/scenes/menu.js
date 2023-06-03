@@ -13,7 +13,7 @@ preload(){
 create(){
     this.cursors = scene.input.keyboard.createCursorKeys();
     this.clavier = scene.input.keyboard.addKeys('A,Z,SPACE,E,R,ENTER');
-
+    
 
 }
 
@@ -26,7 +26,7 @@ update(){
 
 
 changeScene(){
-    
+
 }
 
 }

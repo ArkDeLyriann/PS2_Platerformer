@@ -167,6 +167,7 @@ export default class boss extends Phaser.Scene {
     patternToucheJoueur(eclair, joueur){
         console.log("VRIOUCH ECLAIR")
         eclair.destroy();
+        joueur.takeDmg();
 
 
     }
