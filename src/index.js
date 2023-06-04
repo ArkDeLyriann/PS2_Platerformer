@@ -1,7 +1,7 @@
 import test from "./scenes/testRoom.js";
 import boss from "./scenes/bossRoom.js";
 import menu from "./scenes/menu.js";
-
+import fin from "./scenes/fin.js";
 
 
 
@@ -20,9 +20,9 @@ var config = {
     },
     antialias: true,
 
-    scene: [menu, test, boss]
+    scene: [menu, test, boss , fin]
   };
   
   // création et lancement du jeu
   var game = new Phaser.Game(config);
-  game.scene.start("menu");
+  game.scene.start("boss");

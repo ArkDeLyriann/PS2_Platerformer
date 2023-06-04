@@ -27,12 +27,20 @@ export default class bossP3 extends Phaser.Physics.Arcade.Sprite{
 
     update(){
         this.anims.play("idle", true);
-        this.scene.pattern3();
+        this.scene.pattern1();
         
-        setTimeout(() => {
-            this.scene.pattern2(); 
+        
+        this.scene.pattern2(); 
 
-        }, 3000);
+        
+
+        
+        this.scene.pattern3(); 
+        this.scene.pattern4(); 
+
+        
+
+        
     }
 
     getHit(hitbox){

@@ -27,7 +27,13 @@ export default class test extends Phaser.Scene {
         this.load.spritesheet("boule", "src/assets/sprites/trashMobs/boule.png",{
             frameWidth: 128,
             frameHeight: 128
-        })  
+        })
+
+        this.load.spritesheet("plume", "src/assets/sprites/player/loot_fly.png",{
+            frameWidth: 16,
+            frameHeight: 32
+        }) 
+
                 
         this.load.spritesheet("spectre", "src/assets/sprites/trashMobs/spectre.png",{
             frameWidth: 64,
@@ -97,6 +103,7 @@ export default class test extends Phaser.Scene {
                             
                             
                         const spawnSpectres  = carteDuNiveau.getObjectLayer("spectres");
+                        const spawnPlumes  = carteDuNiveau.getObjectLayer("plumes");
                         
                         const spawnRodeurs  = carteDuNiveau.getObjectLayer("rodeurs"); 
 
@@ -178,14 +185,19 @@ export default class test extends Phaser.Scene {
                             //this.physics.add.overlap(this.player.coups, this.trash, this.taper, null, this);
                             //this.physics.add.overlap(this.player.projectiles, this.trash, this.projectHit, null, this);
                             const spectres = this.createSpectres(spawnSpectres, plateformes);
+                            const plumes = this.createPlumes(spawnPlumes, plateformes);
+
+                            this.physics.add.overlap(this.player, plumes,  this.ramassePlume, null, this);
 
                             const rodeurs = this.createRodeurs(spawnRodeurs, plateformes);
 
 
                             this.physics.add.overlap(this.player.projectiles, spectres, this.projectHit, null, this);
-                            //this.physics.add.overlap(this.rodeur.projectiles, this.player, this.projectHit, null, this);
                             this.physics.add.overlap(this.player.coups, spectres, this.taper, null, this);
-                            this.physics.add.overlap(this.player, spectres, this.spectreOnPlayer, null, this);
+                            
+                            this.physics.add.overlap(this.player.projectiles, rodeurs, this.projectHit, null, this);
+                            this.physics.add.overlap(this.player.coups, rodeurs, this.taper, null, this);
+                            //this.physics.add.overlap(this.player, rodeurs, this.spectreOnPlayer, null, this);
 
                             const projoRodeur = new Phaser.GameObjects.Group;
 
@@ -275,6 +287,22 @@ export default class test extends Phaser.Scene {
                             return boules ;
                         }
 
+                        createPlumes(layer){
+                            const plumes = new Phaser.GameObjects.Group; 
+                    
+                            layer.objects.forEach(checkpoint => {
+                                const plume = this.physics.add.sprite(checkpoint.x, checkpoint.y, 'plume')
+                                
+                                plume.body.setAllowGravity(false)
+                                
+                               
+                    
+                                plumes.add(plume); 
+                            })
+                    
+                            return plumes; 
+                        }
+
                         createCheckpoint(layer){
                             const groupCheckpoint = new Phaser.GameObjects.Group; 
                     
@@ -339,6 +367,13 @@ export default class test extends Phaser.Scene {
                         onCheckpointCollision(player, checkpoint){
                             player.savePosition(checkpoint);
                             console.log("checkpoint")
+                        }
+
+
+                        ramassePlume(joueur, plume){
+                            joueur.feathers += 1;
+                            plume.destroy();
+
                         }
 
 
