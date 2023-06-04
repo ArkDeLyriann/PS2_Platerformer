@@ -141,9 +141,9 @@ export default class test extends Phaser.Scene {
                             });
 
                             const myCheckpoints = this.createCheckpoint(checkPointsLayer); 
-                            this.physics.add.overlap(this.player, myCheckpoints, this.onCheckpointCollision);
+                            this.physics.add.overlap(this.player, myCheckpoints, this.onCheckpointCollision,null, this);
                             const sortie = this.createSortie(sortieLayer); 
-                            this.physics.add.overlap(this.player, sortie, this.goNext);
+                            this.physics.add.collider(this.player, sortie, this.goNext,null, this);
 
 
                             this.anims.create({
@@ -338,12 +338,10 @@ export default class test extends Phaser.Scene {
 
                         goNext(){
 
-                            console.log("change de scene");
                             this.scene.stop();
+      
                             this.scene.start("boss",{
-                              playerHP : this.player.hp,
-                              
-                            });
+                            })
                       
                           }
 
