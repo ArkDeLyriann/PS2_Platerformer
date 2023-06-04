@@ -94,10 +94,7 @@ export default class test extends Phaser.Scene {
                             tileset
                             );
 
-                            const passage = carteDuNiveau.createLayer(
-                                "passage",
-                                tileset
-                                );
+                            
                             
                         const spawnSpectres  = carteDuNiveau.getObjectLayer("spectres");
                         
@@ -105,18 +102,20 @@ export default class test extends Phaser.Scene {
 
                         const checkPointsLayer = carteDuNiveau.getObjectLayer('checkpoints');
 
+                        const sortieLayer = carteDuNiveau.getObjectLayer('sortie');
+
 
 
 
                             
                             
-                            this.player = new Player(this, 0, 32*64, 'player');
+                            this.player = new Player(this, 494*64, 66*64, 'player');
                             this.player.refreshBody();
                             this.player.setSize(32,64);
                             this.player.setOffset(48,44);
                             this.physics.add.collider(this.player, plateformes);
                             
-                            this.physics.add.overlap(this.player, passage, this.goNext, null, this);
+                            
                             //this.physics.add.collider(this.testFly, plateformes, this.drift, null, this);
                             //this.testCollide = this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
                             plateformes.setCollisionByExclusion(-1, true);
@@ -143,6 +142,8 @@ export default class test extends Phaser.Scene {
 
                             const myCheckpoints = this.createCheckpoint(checkPointsLayer); 
                             this.physics.add.overlap(this.player, myCheckpoints, this.onCheckpointCollision);
+                            const sortie = this.createSortie(sortieLayer); 
+                            this.physics.add.overlap(this.player, sortie, this.goNext);
 
 
                             this.anims.create({
@@ -167,7 +168,7 @@ export default class test extends Phaser.Scene {
                                 repeat: -1
                             });
 
-                            this.physics.add.collider(this.player, passage, this.goNext, null, this);
+                         
                             
                             this.physics.world.setBounds(0, 0, 44800, 4480);
                             this.cameras.main.setBounds(0, 0, 44800, 4480);
@@ -284,6 +285,24 @@ export default class test extends Phaser.Scene {
                     
                             return groupCheckpoint; 
                         }
+
+
+                        createSortie(layer){
+                            const groupSortie = new Phaser.GameObjects.Group; 
+                    
+                            layer.objects.forEach(checkpoint => {
+                                const cp = this.physics.add.sprite(checkpoint.x, checkpoint.y, 'none')
+                                cp.setOrigin(0,0)
+                                cp.setAlpha(0)
+                                cp.body.setAllowGravity(false)
+                                cp.setSize(5, 2000); 
+                               
+                    
+                                groupSortie.add(cp); 
+                            })
+                    
+                            return groupSortie; 
+                        }
                         
                         flyReset(){
                             this.player.canFly = true;
@@ -319,12 +338,12 @@ export default class test extends Phaser.Scene {
 
                         goNext(){
 
-                            console.log("change de scene")
-                            //this.scene.stop();
-                            //this.scene.start("boss",{
-                              //playerHP : this.player.hp,
+                            console.log("change de scene");
+                            this.scene.stop();
+                            this.scene.start("boss",{
+                              playerHP : this.player.hp,
                               
-                            //})
+                            });
                       
                           }
 

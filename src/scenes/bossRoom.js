@@ -10,6 +10,12 @@ export default class boss extends Phaser.Scene {
         });
     }
 
+    init(data){
+        
+        this.playerHP = data.playerHP
+        
+      }
+
 
     preload(){
         this.load.image("tileset2", "src/assets/maps/tileset_temp.png");
@@ -71,7 +77,7 @@ export default class boss extends Phaser.Scene {
             this.physics.add.collider(this.player, plateformes);
             plateformes.setCollisionByExclusion(-1, true);
             this.physics.add.collider(this.eclairs, this.player, this.patternToucheJoueur, null, this);
-
+            this.player.hp = this.playerHP;
             this.physics.world.setBounds(0, 0, 1600, 960);
             this.cameras.main.setBounds(0, 0, 1600, 960);
             this.cameras.main.setZoom(0.75);
