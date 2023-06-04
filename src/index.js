@@ -15,7 +15,7 @@ var config = {
       default: "arcade", // mode arcade : le plus simple : des rectangles pour gérer les collisions. Pas de pentes
       arcade: {
         gravity: { y: 1000 },
-        debug: true // permet de voir les hitbox et les vecteurs d'acceleration quand mis à true
+        debug: false // permet de voir les hitbox et les vecteurs d'acceleration quand mis à true
       }
     },
     antialias: true,
@@ -25,4 +25,4 @@ var config = {
   
   // création et lancement du jeu
   var game = new Phaser.Game(config);
-  game.scene.start("boss");
+  game.scene.start("menu");
