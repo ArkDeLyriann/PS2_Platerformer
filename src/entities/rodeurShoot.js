@@ -59,6 +59,11 @@ export default class RodeurShoot extends Phaser.Physics.Arcade.Sprite{
         this.destroy();
         
     }
+    getHit(){
+        
+        this.destroy();
+        
+    }
 
 
 

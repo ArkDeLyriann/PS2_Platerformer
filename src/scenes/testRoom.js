@@ -109,7 +109,7 @@ export default class test extends Phaser.Scene {
 
                             
                             
-                            this.player = new Player(this, 494*64, 66*64, 'player');
+                            this.player = new Player(this, 0, 32*64, 'player');
                             this.player.refreshBody();
                             this.player.setSize(32,64);
                             this.player.setOffset(48,44);
@@ -186,6 +186,11 @@ export default class test extends Phaser.Scene {
                             //this.physics.add.overlap(this.rodeur.projectiles, this.player, this.projectHit, null, this);
                             this.physics.add.overlap(this.player.coups, spectres, this.taper, null, this);
                             this.physics.add.overlap(this.player, spectres, this.spectreOnPlayer, null, this);
+
+                            const projoRodeur = new Phaser.GameObjects.Group;
+
+                            this.physics.add.overlap(projoRodeur, this.player,  this.projectHit, null, this);
+                            this.physics.add.overlap(this.player.coups, projoRodeur, this.taper, null, this);
                         }
                         update(){
                             
@@ -206,7 +211,7 @@ export default class test extends Phaser.Scene {
 
                         createSpectres(layer, plateformes){
                             const spectres = new Phaser.GameObjects.Group; 
-                    
+                            
                             
                             layer.objects.forEach(spawn => {
                                 let enemy = null; 
@@ -218,17 +223,18 @@ export default class test extends Phaser.Scene {
                                
                                  
                     
-                                 
+                                
                                 spectres.add(enemy); 
                                 
                             });
                             return spectres ;
+                            
                         }
 
                         createRodeurs(layer, plateformes){
 
                             const rodeurs = new Phaser.GameObjects.Group;
-                            
+                            const projoRodeur = new Phaser.GameObjects.Group;
                             layer.objects.forEach(spawn => {
                                 let enemy = null; 
                                 
@@ -239,12 +245,12 @@ export default class test extends Phaser.Scene {
                                
                                  
                     
-                                 
+                                projoRodeur.add(enemy.projectiles);
                                 rodeurs.add(enemy); 
                                 
                             });
                             return rodeurs ;
-
+                            return projoRodeur;
                         }
 
 
