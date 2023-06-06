@@ -94,7 +94,7 @@ export default class test extends Phaser.Scene {
                         const spawnBoules  = carteDuNiveau.getObjectLayer("boules");
 
                         const boules = this.createBoules(spawnBoules);
-
+                        
                         const plateformes = carteDuNiveau.createLayer(
                             "Plateformes",
                             tileset
@@ -122,7 +122,7 @@ export default class test extends Phaser.Scene {
                             this.player.setOffset(48,44);
                             this.physics.add.collider(this.player, plateformes);
                             
-                            
+                            this.physics.add.overlap(this.player, boules, this.toucheBoule,null, this);
                             //this.physics.add.collider(this.testFly, plateformes, this.drift, null, this);
                             //this.testCollide = this.physics.add.collider(this.testFly, this.player, this.flyReset,null, this );
                             plateformes.setCollisionByExclusion(-1, true);
@@ -197,7 +197,7 @@ export default class test extends Phaser.Scene {
                             
                             this.physics.add.overlap(this.player.projectiles, rodeurs, this.projectHit, null, this);
                             this.physics.add.overlap(this.player.coups, rodeurs, this.taper, null, this);
-                            //this.physics.add.overlap(this.player, rodeurs, this.spectreOnPlayer, null, this);
+                            this.physics.add.overlap(this.player, spectres, this.spectreOnPlayer, null, this);
 
                             const projoRodeur = new Phaser.GameObjects.Group;
 
