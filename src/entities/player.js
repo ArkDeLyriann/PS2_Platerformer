@@ -244,6 +244,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 
             }
         }
+
+        if (Phaser.Input.Keyboard.JustDown(this.clavier.Z)){
+            if(this.canHit){
+                this.canHit = false
+                this.tir()
+                
+            }
+        }
     
     }
 
@@ -282,6 +290,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         }
     }
 
+    tir(){
+        const pew = new Tir(this.scene, this.x, this.y + 5); 
+                this.projectiles.add (pew); 
+                pew.fire(this);
+                this.canHit = true
+    }
+
     attaque(){
         
         if (this.isFlying){        
@@ -299,25 +314,47 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
                 console.log('gauche');
                 this.coup = new Melee (this.scene, this.x -64 , this.y, 'hitBoite' )
                 this.coups.add(this.coup);
+                this.punching = true
                 setTimeout(() => {
                     this.coup.destroy();
+                    this.punching = false
                     this.canHit = true
-                }, 30);
+                }, 500);
             }
             else if (this.goingRight){
                 this.coup = new Melee (this.scene, this.x +64 , this.y, 'hitBoite' )
                 this.coups.add(this.coup);
+                this.punching = true
                 setTimeout(() => {
                     this.coup.destroy();
+                    this.punching = false
                     this.canHit = true
-                }, 30);
+                }, 500);
             }
             else{
-                const pew = new Tir(this.scene, this.x, this.y + 5); 
-                this.projectiles.add (pew); 
-                pew.fire(this);
-                this.canHit = true
+                if(this.facing== "left"){
+                    console.log('gauche');
+                    this.coup = new Melee (this.scene, this.x -32 , this.y, 'hitBoite' )
+                    this.coups.add(this.coup);
+                    this.punching = true
+                    setTimeout(() => {
+                        this.coup.destroy();
+                        this.punching = false
+                        this.canHit = true
+                    }, 500);
+                this.anims.play("hit", true).flipX=true;
+                }else if(this.facing = "right"){
+                    console.log('droite');
+                    this.coup = new Melee (this.scene, this.x +32 , this.y, 'hitBoite' )
+                    this.coups.add(this.coup);
+                    this.punching = true
+                    setTimeout(() => {
+                        this.coup.destroy();
+                        this.punching = false
+                        this.canHit = true
+                    }, 500);
             } 
+        }
         }
         else{
             if (this.goingLeft){
